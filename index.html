@@ -32,7 +32,10 @@
         display: grid;
         grid-template-columns: repeat(5, 1fr);
         gap: 20px;
+        max-width: 1400px;
+        margin: 0 auto;
       }
+
       @media (max-width: 700px) {
         .schedule-container {
           grid-template-columns: 1fr;
@@ -95,7 +98,7 @@
         background-color: #2980b9;
       }
 
-      /* Modal Styles */
+      /* Modal */
       .modal-overlay {
         position: fixed;
         top: 0;
@@ -156,8 +159,27 @@
     </header>
 
     <div class="schedule-container" id="schedule"></div>
+    <section id="attendance-section" style="margin-top: 50px">
+      <div class="day-card">
+        <h2>Attendance Tracker</h2>
 
-    <!-- Modal for Editing -->
+        <div style="margin-bottom: 20px">
+          <label for="employeeName" style="font-weight: bold"
+            >Employee Name:</label
+          >
+          <input
+            type="text"
+            id="employeeName"
+            placeholder="Enter employee name"
+            style="width: 100%; padding: 8px; margin-top: 5px"
+          />
+        </div>
+
+        <div id="attendance-days"></div>
+      </div>
+    </section>
+
+    <!-- modal for editing -->
     <div class="modal-overlay" id="modalOverlay">
       <div class="modal">
         <input type="text" id="editInput" />
@@ -243,35 +265,181 @@
         closeModal();
       }
 
-      function downloadPDF() {
-        const originalSchedule = document.getElementById("schedule");
-        const pdfLayout = originalSchedule.cloneNode(true);
+      async function downloadPDF() {
+        const schedule = document.getElementById("schedule");
+        const attendance = document.getElementById("attendance-section");
 
-        pdfLayout.style.display = "flex";
-        pdfLayout.style.flexDirection = "column";
-        pdfLayout.style.gap = "20px";
-        pdfLayout.style.width = "100%";
+        const scheduleClone = schedule.cloneNode(true);
+        const attendanceClone = attendance.cloneNode(true);
 
-        const pdfContainer = document.createElement("div");
-        pdfContainer.appendChild(pdfLayout);
-        document.body.appendChild(pdfContainer);
+        scheduleClone.style.display = "grid";
+        scheduleClone.style.gridTemplateColumns = "repeat(5, 1fr)";
+        scheduleClone.style.gap = "20px";
+        scheduleClone.style.maxWidth = "1400px";
+        scheduleClone.style.margin = "0 auto";
+
+        attendanceClone.style.marginTop = "50px";
+        attendanceClone.style.width = "100%";
+
+        const container = document.createElement("div");
+        container.appendChild(scheduleClone);
+
+        const pageBreak = document.createElement("div");
+        pageBreak.style.pageBreakBefore = "always";
+        container.appendChild(pageBreak);
+
+        container.appendChild(attendanceClone);
+
+        document.body.appendChild(container);
 
         const opt = {
           margin: 0.5,
           filename: "Weekly_Schedule.pdf",
           image: { type: "jpeg", quality: 0.98 },
           html2canvas: { scale: 2 },
-          jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+          jsPDF: { unit: "in", format: "letter", orientation: "landscape" },
         };
 
-        html2pdf()
-          .from(pdfLayout)
-          .set(opt)
-          .save()
-          .then(() => {
-            document.body.removeChild(pdfContainer);
-          });
+        await html2pdf().from(container).set(opt).save();
+
+        document.body.removeChild(container);
       }
+
+      // Attendance Section
+      const attendanceDaysContainer =
+        document.getElementById("attendance-days");
+      const daysOfWeek = [
+        "Monday",
+        "Tuesday",
+        "Wednesday",
+        "Thursday",
+        "Friday",
+      ];
+      let attendanceData = { employeeName: "", days: {} };
+
+      daysOfWeek.forEach((day) => {
+        attendanceData.days[day] = { date: "", clients: [] };
+
+        const dayBlock = document.createElement("div");
+        dayBlock.style.marginBottom = "30px";
+        dayBlock.innerHTML = `
+    <h3 style="margin-top:20px;">${day}</h3>
+    <label for="${day}-date" style="font-weight: bold;">Date:</label>
+    <input type="date" id="${day}-date" style="width: 100%; padding: 8px; margin-top:5px; margin-bottom:10px;">
+    <div style="display: flex; gap: 10px; margin-top: 5px;">
+      <input type="text" id="${day}-clientName" placeholder="Enter client name" style="flex: 1; padding: 8px;">
+      <button onclick="addClient('${day}')" style="padding: 8px 12px; background-color: #3498db; border: none; color: white; border-radius: 4px; cursor: pointer;">Add</button>
+    </div>
+    <ul id="${day}-clientList" style="list-style: none; padding: 0; margin-top: 15px;"></ul>
+  `;
+        attendanceDaysContainer.appendChild(dayBlock);
+      });
+
+      function addClient(day) {
+        const clientInput = document.getElementById(`${day}-clientName`);
+        const clientList = document.getElementById(`${day}-clientList`);
+        const name = clientInput.value.trim();
+        if (name === "") return;
+
+        const li = document.createElement("li");
+        li.style.marginBottom = "10px";
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
+        li.style.background = "#ecf0f1";
+        li.style.padding = "8px";
+        li.style.borderRadius = "4px";
+        li.textContent = name;
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.style.backgroundColor = "#e74c3c";
+        removeBtn.style.color = "white";
+        removeBtn.style.border = "none";
+        removeBtn.style.padding = "5px 10px";
+        removeBtn.style.borderRadius = "4px";
+        removeBtn.style.cursor = "pointer";
+        removeBtn.style.marginLeft = "10px";
+        removeBtn.onclick = function () {
+          li.remove();
+          saveAttendanceData();
+        };
+
+        li.appendChild(removeBtn);
+        clientList.appendChild(li);
+        clientInput.value = "";
+
+        saveAttendanceData();
+      }
+
+      function saveAttendanceData() {
+        attendanceData.employeeName =
+          document.getElementById("employeeName").value;
+        daysOfWeek.forEach((day) => {
+          attendanceData.days[day].date = document.getElementById(
+            `${day}-date`
+          ).value;
+          attendanceData.days[day].clients = Array.from(
+            document.querySelectorAll(`#${day}-clientList li`)
+          ).map((li) => li.childNodes[0].nodeValue.trim());
+        });
+        localStorage.setItem("attendanceData", JSON.stringify(attendanceData));
+      }
+
+      function loadAttendanceData() {
+        const data = JSON.parse(localStorage.getItem("attendanceData"));
+        if (data) {
+          attendanceData = data;
+          document.getElementById("employeeName").value =
+            data.employeeName || "";
+          daysOfWeek.forEach((day) => {
+            document.getElementById(`${day}-date`).value =
+              data.days[day]?.date || "";
+            const clientList = document.getElementById(`${day}-clientList`);
+            clientList.innerHTML = "";
+            (data.days[day]?.clients || []).forEach((name) => {
+              const li = document.createElement("li");
+              li.style.marginBottom = "10px";
+              li.style.display = "flex";
+              li.style.justifyContent = "space-between";
+              li.style.alignItems = "center";
+              li.style.background = "#ecf0f1";
+              li.style.padding = "8px";
+              li.style.borderRadius = "4px";
+              li.textContent = name;
+
+              const removeBtn = document.createElement("button");
+              removeBtn.textContent = "Remove";
+              removeBtn.style.backgroundColor = "#e74c3c";
+              removeBtn.style.color = "white";
+              removeBtn.style.border = "none";
+              removeBtn.style.padding = "5px 10px";
+              removeBtn.style.borderRadius = "4px";
+              removeBtn.style.cursor = "pointer";
+              removeBtn.style.marginLeft = "10px";
+              removeBtn.onclick = function () {
+                li.remove();
+                saveAttendanceData();
+              };
+
+              li.appendChild(removeBtn);
+              clientList.appendChild(li);
+            });
+          });
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        loadAttendanceData();
+        document
+          .getElementById("employeeName")
+          .addEventListener("input", saveAttendanceData);
+        daysOfWeek.forEach((day) => {
+          document
+            .getElementById(`${day}-date`)
+            .addEventListener("change", saveAttendanceData);
+        });
+      });
     </script>
   </body>
 </html>
