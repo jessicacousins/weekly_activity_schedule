@@ -237,19 +237,27 @@
       }
 
       /* Tooltip for Add and Remove Buttons */
-      .attendance-card button:hover::after {
+      .attendance-card button::after {
         content: attr(data-tooltip);
         position: absolute;
-        top: -30px;
-        left: 50%;
-        transform: translateX(-50%);
+        top: -3px;
+        left: 20%;
+        transform: translateX(-50%) translateY(-10px);
         background: #3498db;
         color: white;
         padding: 4px 8px;
         border-radius: 4px;
         font-size: 0.75em;
         white-space: nowrap;
+        opacity: 0;
         pointer-events: none;
+        transition: opacity 0.3s ease, transform 0.3s ease;
+      }
+
+      .attendance-card button:hover::after {
+        opacity: 1;
+        transform: translateX(-50%) translateY(-20px);
+        background-color: #2980b9;
       }
 
       /* PDF scaling */
