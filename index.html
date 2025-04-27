@@ -519,14 +519,18 @@
         const scheduleClone = schedule.cloneNode(true);
         const attendanceClone = attendance.cloneNode(true);
 
-        // force PDF mode styling
-        attendanceClone
-          .querySelector(".attendance-grid")
-          .classList.add("pdf-mode");
-
+        // Hide all elements with 'hide-in-pdf' class inside both clones
+        scheduleClone.querySelectorAll(".hide-in-pdf").forEach((el) => {
+          el.style.display = "none";
+        });
         attendanceClone.querySelectorAll(".hide-in-pdf").forEach((el) => {
           el.style.display = "none";
         });
+
+        // Apply PDF layout tweaks
+        attendanceClone
+          .querySelector(".attendance-grid")
+          .classList.add("pdf-mode");
 
         scheduleClone.style.display = "grid";
         scheduleClone.style.gridTemplateColumns = "repeat(5, 1fr)";
@@ -714,7 +718,8 @@
       function createDayOptions(dayCard, dayName) {
         const toggleBtn = document.createElement("button");
         toggleBtn.textContent = "⚙️ Options";
-        toggleBtn.className = "small-option-btn hide-in-pdf";
+        toggleBtn.classList.add("small-option-btn", "hide-in-pdf");
+
         toggleBtn.style.marginTop = "10px";
 
         const optionsMenu = document.createElement("div");
