@@ -14,20 +14,30 @@
         margin: 0;
         padding: 0;
       }
+
       body {
         font-family: "Roboto", sans-serif;
         background-color: #f4f6f8;
         color: #333;
         padding: 20px;
       }
+
       header {
         text-align: center;
         margin-bottom: 30px;
       }
+
       h1 {
         font-size: 2em;
         margin-bottom: 10px;
+        color: #2c3e50;
       }
+
+      h2,
+      h3 {
+        color: #2c3e50;
+      }
+
       .schedule-container {
         display: grid;
         grid-template-columns: repeat(5, 1fr);
@@ -41,47 +51,103 @@
           grid-template-columns: 1fr;
         }
       }
+
       .day-card {
         background: #fff;
         border-radius: 8px;
         padding: 20px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        transition: box-shadow 0.3s;
       }
+
+      .day-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+      }
+
       .day-card h2 {
-        font-size: 1.5em;
+        font-size: 1.4em;
         margin-bottom: 15px;
-        color: #2c3e50;
         border-bottom: 1px solid #ddd;
-        padding-bottom: 5px;
+        padding-bottom: 8px;
       }
+
       .time-block {
         margin-bottom: 15px;
       }
+
       .time-label {
-        font-weight: bold;
+        font-weight: 600;
         display: block;
         margin-bottom: 5px;
-        color: #555;
+        color: #2c3e50;
         cursor: pointer;
+        position: relative;
       }
+
+      .time-label:hover::after {
+        content: "Edit time";
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #3498db;
+        color: white;
+        font-size: 0.75em;
+        padding: 2px 6px;
+        border-radius: 4px;
+        transform: translateY(-100%);
+      }
+
       textarea {
         width: 100%;
         min-height: 50px;
         resize: vertical;
-        padding: 8px;
+        padding: 10px;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 6px;
         font-size: 1em;
+        background-color: #fff;
+        transition: border-color 0.3s, background-color 0.3s;
       }
+
+      textarea:hover {
+        border-color: #3498db;
+        background-color: #f0f8ff;
+      }
+
+      textarea::placeholder {
+        color: #aaa;
+      }
+
       .fixed-times {
         background: #ecf0f1;
         padding: 10px;
-        border-radius: 4px;
+        border-radius: 6px;
         text-align: center;
         font-weight: bold;
         color: #7f8c8d;
         cursor: pointer;
+        transition: background-color 0.3s;
+        position: relative;
       }
+
+      .fixed-times:hover {
+        background-color: #dde6f1;
+      }
+
+      .fixed-times:hover::after {
+        content: "Edit activity";
+        position: absolute;
+        top: 0;
+        right: 0;
+        background: #3498db;
+        color: white;
+        font-size: 0.75em;
+        padding: 2px 6px;
+        border-radius: 4px;
+        transform: translateY(-100%);
+      }
+
+      /* Button */
       .download-button {
         margin: 30px auto 0;
         display: block;
@@ -90,15 +156,16 @@
         background-color: #3498db;
         color: #fff;
         border: none;
-        border-radius: 5px;
+        border-radius: 6px;
         cursor: pointer;
         transition: background-color 0.3s;
       }
+
       .download-button:hover {
         background-color: #2980b9;
       }
 
-      /* attendance area  */
+      /* Attendance Section */
       .attendance-wrapper {
         width: 100%;
         display: flex;
@@ -112,31 +179,80 @@
         max-width: 1400px;
       }
 
+      @media (max-width: 700px) {
+        .attendance-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
       .attendance-card {
         background: #fff;
         padding: 15px;
         border-radius: 8px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
-        font-size: 0.85em;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+        font-size: 0.9em;
+        transition: box-shadow 0.3s;
+      }
+
+      .attendance-card:hover {
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
       }
 
       .attendance-card h3 {
-        font-size: 1em;
-        margin-bottom: 8px;
+        font-size: 1.1em;
+        margin-bottom: 10px;
         color: #2c3e50;
       }
 
       .attendance-card input[type="date"],
       .attendance-card input[type="text"] {
-        padding: 6px;
-        font-size: 0.9em;
+        padding: 8px;
+        font-size: 1em;
+        width: 100%;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        transition: border-color 0.3s, background-color 0.3s;
+      }
+
+      .attendance-card input[type="date"]:hover,
+      .attendance-card input[type="text"]:hover {
+        border-color: #3498db;
+        background-color: #f0f8ff;
       }
 
       .attendance-card button {
-        padding: 6px 10px;
+        padding: 8px 12px;
         font-size: 0.85em;
+        background-color: #3498db;
+        color: white;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        position: relative;
       }
 
+      .attendance-card button:hover {
+        background-color: #2980b9;
+      }
+
+      /* Tooltip for Add and Remove Buttons */
+      .attendance-card button:hover::after {
+        content: attr(data-tooltip);
+        position: absolute;
+        top: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #3498db;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.75em;
+        white-space: nowrap;
+        pointer-events: none;
+      }
+
+      /* PDF scaling */
       .attendance-grid.pdf-mode {
         transform: scale(0.75);
         transform-origin: top center;
@@ -149,12 +265,6 @@
         }
         .hide-in-pdf {
           display: none;
-        }
-      }
-
-      @media (max-width: 700px) {
-        .attendance-grid {
-          grid-template-columns: 1fr;
         }
       }
 
@@ -175,6 +285,7 @@
         justify-content: center;
         z-index: 1000;
       }
+
       .modal {
         background: white;
         padding: 20px;
@@ -185,17 +296,20 @@
         flex-direction: column;
         gap: 15px;
       }
+
       .modal input {
-        padding: 8px;
+        padding: 10px;
         font-size: 1em;
         border: 1px solid #ccc;
-        border-radius: 4px;
+        border-radius: 6px;
       }
+
       .modal-buttons {
         display: flex;
         justify-content: flex-end;
         gap: 10px;
       }
+
       .modal-buttons button {
         padding: 8px 16px;
         font-size: 1em;
@@ -203,10 +317,12 @@
         border-radius: 4px;
         cursor: pointer;
       }
+
       .save-btn {
         background-color: #3498db;
         color: white;
       }
+
       .cancel-btn {
         background-color: #7f8c8d;
         color: white;
@@ -251,8 +367,20 @@
       <div class="modal">
         <input type="text" id="editInput" />
         <div class="modal-buttons">
-          <button class="cancel-btn" onclick="closeModal()">Cancel</button>
-          <button class="save-btn" onclick="saveModal()">Save</button>
+          <button
+            data-tooltip="Add client"
+            class="cancel-btn"
+            onclick="closeModal()"
+          >
+            Cancel
+          </button>
+          <button
+            data-tooltip="Remove client"
+            class="save-btn"
+            onclick="saveModal()"
+          >
+            Save
+          </button>
         </div>
       </div>
     </div>
@@ -397,6 +525,7 @@
         attendanceData.days[day] = { date: "", clients: [] };
 
         const dayBlock = document.createElement("div");
+
         dayBlock.className = "attendance-card";
         dayBlock.innerHTML = `
           <h3>${day}</h3>
@@ -405,7 +534,7 @@
           
           <div class="hide-in-pdf" style="display: flex; gap: 10px; margin-top: 5px;">
             <input type="text" id="${day}-clientName" placeholder="Enter client name" style="flex: 1; padding: 8px;">
-            <button onclick="addClient('${day}')" style="padding: 8px 12px; background-color: #3498db; border: none; color: white; border-radius: 4px; cursor: pointer;">Add</button>
+            <button data-tooltip="Add client" onclick="addClient('${day}')" style="padding: 8px 12px; background-color: #3498db; border: none; color: white; border-radius: 4px; cursor: pointer;">Add</button>
           </div>
 
           <ul id="${day}-clientList" style="list-style: none; padding: 0; margin-top: 15px;"></ul>
@@ -436,8 +565,9 @@
         const removeWrapper = document.createElement("div");
         removeWrapper.className = "hide-in-pdf";
 
-        const removeBtn = document.createElement("button");
+        removeBtn = document.createElement("button");
         removeBtn.textContent = "Remove";
+        removeBtn.setAttribute("data-tooltip", "Remove client");
         removeBtn.style.backgroundColor = "#e74c3c";
         removeBtn.style.color = "white";
         removeBtn.style.border = "none";
@@ -497,6 +627,7 @@
 
               const removeBtn = document.createElement("button");
               removeBtn.textContent = "Remove";
+              removeBtn.setAttribute("data-tooltip", "Add client");
               removeBtn.style.backgroundColor = "#e74c3c";
               removeBtn.style.color = "white";
               removeBtn.style.border = "none";
