@@ -271,6 +271,19 @@
         background-color: #2980b9;
       }
 
+      .options-menu {
+        display: none; /* default hidden */
+        flex-direction: column;
+        gap: 8px;
+        margin-top: 8px;
+      }
+      @media print {
+        .hide-in-pdf,
+        .options-menu {
+          display: none !important;
+        }
+      }
+
       /* PDF scaling */
       .attendance-grid.pdf-mode {
         transform: scale(0.75);
@@ -699,38 +712,68 @@
       });
 
       function createDayOptions(dayCard, dayName) {
-        const optionsDiv = document.createElement("div");
-        optionsDiv.style.marginTop = "10px";
-        optionsDiv.style.display = "flex";
-        optionsDiv.style.flexDirection = "column";
-        optionsDiv.style.gap = "8px";
+        // Create Options Toggle Button
+        const toggleBtn = document.createElement("button");
+        toggleBtn.textContent = "⚙️ Options";
+        toggleBtn.className = "small-option-btn hide-in-pdf";
+        toggleBtn.style.marginTop = "10px";
 
+        // Create hidden dropdown menu
+        const optionsMenu = document.createElement("div");
+        optionsMenu.className = "options-menu hide-in-pdf";
+        optionsMenu.style.display = "none";
+        optionsMenu.style.flexDirection = "column";
+        optionsMenu.style.gap = "8px";
+        optionsMenu.style.marginTop = "8px";
+
+        // Buttons inside dropdown
         const holidayBtn = document.createElement("button");
         holidayBtn.textContent = "Mark as Holiday";
         holidayBtn.className = "small-option-btn";
-        holidayBtn.onclick = () => markDay(dayCard, "Holiday");
+        holidayBtn.onclick = () => {
+          markDay(dayCard, "Holiday");
+          optionsMenu.style.display = "none";
+        };
 
         const weatherBtn = document.createElement("button");
         weatherBtn.textContent = "Mark as Weather Closure";
         weatherBtn.className = "small-option-btn";
-        weatherBtn.onclick = () => markDay(dayCard, "Weather Closure");
+        weatherBtn.onclick = () => {
+          markDay(dayCard, "Weather Closure");
+          optionsMenu.style.display = "none";
+        };
 
         const offBtn = document.createElement("button");
         offBtn.textContent = "Mark as Employee Off";
         offBtn.className = "small-option-btn";
-        offBtn.onclick = () => markEmployeeOff(dayCard, dayName);
+        offBtn.onclick = () => {
+          markEmployeeOff(dayCard, dayName);
+          optionsMenu.style.display = "none";
+        };
 
         const addTimeBtn = document.createElement("button");
         addTimeBtn.textContent = "Add Time Block";
         addTimeBtn.className = "small-option-btn";
-        addTimeBtn.onclick = () => addTimeBlock(dayCard);
+        addTimeBtn.onclick = () => {
+          addTimeBlock(dayCard);
+          optionsMenu.style.display = "none";
+        };
 
-        optionsDiv.appendChild(holidayBtn);
-        optionsDiv.appendChild(weatherBtn);
-        optionsDiv.appendChild(offBtn);
-        optionsDiv.appendChild(addTimeBtn);
+        // Append buttons into dropdown
+        optionsMenu.appendChild(holidayBtn);
+        optionsMenu.appendChild(weatherBtn);
+        optionsMenu.appendChild(offBtn);
+        optionsMenu.appendChild(addTimeBtn);
 
-        dayCard.appendChild(optionsDiv);
+        // Toggle dropdown visibility
+        toggleBtn.onclick = () => {
+          optionsMenu.style.display =
+            optionsMenu.style.display === "none" ? "flex" : "none";
+        };
+
+        // Attach toggle button and menu to day card
+        dayCard.appendChild(toggleBtn);
+        dayCard.appendChild(optionsMenu);
       }
 
       function markDay(dayCard, type) {
