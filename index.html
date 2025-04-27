@@ -147,7 +147,7 @@
         transform: translateY(-100%);
       }
 
-      /* Button */
+      /* download button PDF */
       .download-button {
         margin: 30px auto 0;
         display: block;
@@ -158,11 +158,16 @@
         border: none;
         border-radius: 6px;
         cursor: pointer;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, transform 0.2s;
       }
 
       .download-button:hover {
         background-color: #2980b9;
+        transform: scale(1.08);
+      }
+
+      .download-button:active {
+        transform: scale(0.96);
       }
 
       /* Attendance Section */
@@ -230,10 +235,16 @@
         border-radius: 4px;
         cursor: pointer;
         position: relative;
+        transition: background-color 0.3s, transform 0.2s;
       }
 
       .attendance-card button:hover {
         background-color: #2980b9;
+        transform: scale(1.08);
+      }
+
+      .attendance-card button:active {
+        transform: scale(0.96);
       }
 
       /* Tooltip for Add and Remove Buttons */
@@ -334,6 +345,25 @@
       .cancel-btn {
         background-color: #7f8c8d;
         color: white;
+      }
+
+      /* activity schedule button options  */
+      .small-option-btn {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 10px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 0.85em;
+        transition: background-color 0.3s, transform 0.2s;
+      }
+      .small-option-btn:hover {
+        background-color: #2980b9;
+        transform: scale(1.05);
+      }
+      .small-option-btn:active {
+        transform: scale(0.95);
       }
     </style>
   </head>
@@ -443,6 +473,7 @@
           dayCard.appendChild(timeBlock);
         });
 
+        createDayOptions(dayCard, day);
         scheduleContainer.appendChild(dayCard);
       });
 
@@ -666,6 +697,105 @@
             .addEventListener("change", saveAttendanceData);
         });
       });
+
+      function createDayOptions(dayCard, dayName) {
+        const optionsDiv = document.createElement("div");
+        optionsDiv.style.marginTop = "10px";
+        optionsDiv.style.display = "flex";
+        optionsDiv.style.flexDirection = "column";
+        optionsDiv.style.gap = "8px";
+
+        const holidayBtn = document.createElement("button");
+        holidayBtn.textContent = "Mark as Holiday";
+        holidayBtn.className = "small-option-btn";
+        holidayBtn.onclick = () => markDay(dayCard, "Holiday");
+
+        const weatherBtn = document.createElement("button");
+        weatherBtn.textContent = "Mark as Weather Closure";
+        weatherBtn.className = "small-option-btn";
+        weatherBtn.onclick = () => markDay(dayCard, "Weather Closure");
+
+        const offBtn = document.createElement("button");
+        offBtn.textContent = "Mark as Employee Off";
+        offBtn.className = "small-option-btn";
+        offBtn.onclick = () => markEmployeeOff(dayCard, dayName);
+
+        const addTimeBtn = document.createElement("button");
+        addTimeBtn.textContent = "Add Time Block";
+        addTimeBtn.className = "small-option-btn";
+        addTimeBtn.onclick = () => addTimeBlock(dayCard);
+
+        optionsDiv.appendChild(holidayBtn);
+        optionsDiv.appendChild(weatherBtn);
+        optionsDiv.appendChild(offBtn);
+        optionsDiv.appendChild(addTimeBtn);
+
+        dayCard.appendChild(optionsDiv);
+      }
+
+      function markDay(dayCard, type) {
+        dayCard
+          .querySelectorAll(".time-block")
+          .forEach((block) => block.remove());
+        const notice = document.createElement("div");
+        notice.textContent = `📌 ${type}`;
+        notice.style.fontSize = "1.1em";
+        notice.style.fontWeight = "bold";
+        notice.style.textAlign = "center";
+        notice.style.color = "#e74c3c";
+        notice.style.marginTop = "20px";
+        dayCard.appendChild(notice);
+      }
+
+      function markEmployeeOff(dayCard, dayName) {
+        dayCard
+          .querySelectorAll(".time-block")
+          .forEach((block) => block.remove());
+
+        const wrapper = document.createElement("div");
+        wrapper.style.marginTop = "20px";
+        wrapper.style.textAlign = "center";
+
+        const notice = document.createElement("div");
+        notice.textContent = `📌 Employee Off`;
+        notice.style.fontSize = "1.1em";
+        notice.style.fontWeight = "bold";
+        notice.style.color = "#e67e22";
+        wrapper.appendChild(notice);
+
+        const input = document.createElement("input");
+        input.type = "text";
+        input.placeholder = "Relief Staff Name";
+        input.style.marginTop = "10px";
+        input.style.padding = "8px";
+        input.style.borderRadius = "6px";
+        input.style.border = "1px solid #ccc";
+        input.style.width = "80%";
+        wrapper.appendChild(input);
+
+        dayCard.appendChild(wrapper);
+      }
+
+      function addTimeBlock(dayCard) {
+        const timeBlock = document.createElement("div");
+        timeBlock.className = "time-block";
+
+        const timeLabel = document.createElement("span");
+        timeLabel.className = "time-label";
+        timeLabel.textContent = "New Time";
+        timeLabel.addEventListener("dblclick", () => openModal(timeLabel));
+
+        const textarea = document.createElement("textarea");
+        textarea.placeholder = "Enter new activity...";
+
+        timeBlock.appendChild(timeLabel);
+        timeBlock.appendChild(textarea);
+
+        const options = dayCard.querySelector(
+          'div[style*="flex-direction: column"]'
+        );
+        dayCard.insertBefore(timeBlock, options);
+      }
     </script>
   </body>
 </html>
