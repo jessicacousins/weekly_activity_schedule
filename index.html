@@ -147,12 +147,19 @@
           transform: scale(0.75);
           transform-origin: top center;
         }
+        .hide-in-pdf {
+          display: none;
+        }
       }
 
       @media (max-width: 700px) {
         .attendance-grid {
           grid-template-columns: 1fr;
         }
+      }
+
+      .hide-in-pdf {
+        display: block;
       }
 
       /* Modal */
@@ -210,17 +217,19 @@
   <body>
     <header>
       <h1>Weekly Activity Schedule</h1>
+      <h3>Monday - Friday</h3>
+      <!-- PDF button  -->
       <button class="download-button" onclick="downloadPDF()">
         Download as PDF
       </button>
     </header>
-
+    <!-- schedule grid  -->
     <div class="schedule-container" id="schedule"></div>
+    <!-- attendance grid  -->
     <section id="attendance-section" style="margin-top: 50px">
       <h2 style="text-align: center; margin-bottom: 20px">
         Attendance Tracker
       </h2>
-
       <div style="max-width: 1400px; margin: 0 auto; margin-bottom: 30px">
         <label for="employeeName" style="font-weight: bold"
           >Employee Name:</label
@@ -232,7 +241,6 @@
           style="width: 100%; padding: 8px; margin-top: 5px"
         />
       </div>
-
       <div class="attendance-wrapper">
         <div class="attendance-grid" id="attendance-days"></div>
       </div>
@@ -331,10 +339,14 @@
         const scheduleClone = schedule.cloneNode(true);
         const attendanceClone = attendance.cloneNode(true);
 
-        // Force PDF mode styling
+        // force PDF mode styling
         attendanceClone
           .querySelector(".attendance-grid")
           .classList.add("pdf-mode");
+
+        attendanceClone.querySelectorAll(".hide-in-pdf").forEach((el) => {
+          el.style.display = "none";
+        });
 
         scheduleClone.style.display = "grid";
         scheduleClone.style.gridTemplateColumns = "repeat(5, 1fr)";
@@ -387,15 +399,18 @@
         const dayBlock = document.createElement("div");
         dayBlock.className = "attendance-card";
         dayBlock.innerHTML = `
-  <h3>${day}</h3>
-  <label for="${day}-date" style="font-weight: bold;">Date:</label>
-  <input type="date" id="${day}-date" style="width: 100%; padding: 8px; margin-top:5px; margin-bottom:10px;">
-  <div style="display: flex; gap: 10px; margin-top: 5px;">
-    <input type="text" id="${day}-clientName" placeholder="Enter client name" style="flex: 1; padding: 8px;">
-    <button onclick="addClient('${day}')" style="padding: 8px 12px; background-color: #3498db; border: none; color: white; border-radius: 4px; cursor: pointer;">Add</button>
-  </div>
-  <ul id="${day}-clientList" style="list-style: none; padding: 0; margin-top: 15px;"></ul>
-`;
+          <h3>${day}</h3>
+          <label for="${day}-date" style="font-weight: bold;">Date:</label>
+          <input type="date" id="${day}-date" style="width: 100%; padding: 8px; margin-top:5px; margin-bottom:10px;">
+          
+          <div class="hide-in-pdf" style="display: flex; gap: 10px; margin-top: 5px;">
+            <input type="text" id="${day}-clientName" placeholder="Enter client name" style="flex: 1; padding: 8px;">
+            <button onclick="addClient('${day}')" style="padding: 8px 12px; background-color: #3498db; border: none; color: white; border-radius: 4px; cursor: pointer;">Add</button>
+          </div>
+
+          <ul id="${day}-clientList" style="list-style: none; padding: 0; margin-top: 15px;"></ul>
+        `;
+
         attendanceDaysContainer.appendChild(dayBlock);
       });
 
@@ -413,7 +428,13 @@
         li.style.background = "#ecf0f1";
         li.style.padding = "8px";
         li.style.borderRadius = "4px";
-        li.textContent = name;
+
+        const clientNameSpan = document.createElement("span");
+        clientNameSpan.textContent = name;
+        li.appendChild(clientNameSpan);
+
+        const removeWrapper = document.createElement("div");
+        removeWrapper.className = "hide-in-pdf";
 
         const removeBtn = document.createElement("button");
         removeBtn.textContent = "Remove";
@@ -429,7 +450,9 @@
           saveAttendanceData();
         };
 
-        li.appendChild(removeBtn);
+        removeWrapper.appendChild(removeBtn);
+        li.appendChild(removeWrapper);
+
         clientList.appendChild(li);
         clientInput.value = "";
 
