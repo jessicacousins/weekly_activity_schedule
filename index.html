@@ -272,7 +272,7 @@
       }
 
       .options-menu {
-        display: none; /* default hidden */
+        display: none;
         flex-direction: column;
         gap: 8px;
         margin-top: 8px;
@@ -712,13 +712,11 @@
       });
 
       function createDayOptions(dayCard, dayName) {
-        // Create Options Toggle Button
         const toggleBtn = document.createElement("button");
         toggleBtn.textContent = "⚙️ Options";
         toggleBtn.className = "small-option-btn hide-in-pdf";
         toggleBtn.style.marginTop = "10px";
 
-        // Create hidden dropdown menu
         const optionsMenu = document.createElement("div");
         optionsMenu.className = "options-menu hide-in-pdf";
         optionsMenu.style.display = "none";
@@ -726,7 +724,6 @@
         optionsMenu.style.gap = "8px";
         optionsMenu.style.marginTop = "8px";
 
-        // Buttons inside dropdown
         const holidayBtn = document.createElement("button");
         holidayBtn.textContent = "Mark as Holiday";
         holidayBtn.className = "small-option-btn";
@@ -759,19 +756,16 @@
           optionsMenu.style.display = "none";
         };
 
-        // Append buttons into dropdown
         optionsMenu.appendChild(holidayBtn);
         optionsMenu.appendChild(weatherBtn);
         optionsMenu.appendChild(offBtn);
         optionsMenu.appendChild(addTimeBtn);
 
-        // Toggle dropdown visibility
         toggleBtn.onclick = () => {
           optionsMenu.style.display =
             optionsMenu.style.display === "none" ? "flex" : "none";
         };
 
-        // Attach toggle button and menu to day card
         dayCard.appendChild(toggleBtn);
         dayCard.appendChild(optionsMenu);
       }
