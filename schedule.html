@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Weekly Activity Schedule</title>
+    <link href="styles.css" rel="stylesheet" />
+  </head>
+  <body>
+    <header>
+      <h1>Weekly Activity Schedule</h1>
+      <h3>Monday - Friday</h3>
+      <button class="download-button" onclick="downloadPDF()">
+        Download as PDF
+      </button>
+    </header>
+
+    <div class="schedule-container" id="schedule"></div>
+
+    <section id="attendance-section" style="margin-top: 50px">
+      <h2 style="text-align: center; margin-bottom: 20px">
+        Attendance Tracker
+      </h2>
+      <div style="max-width: 1400px; margin: 0 auto; margin-bottom: 30px">
+        <label for="employeeName" style="font-weight: bold"
+          >Employee Name:</label
+        >
+        <input
+          type="text"
+          id="employeeName"
+          placeholder="Enter employee name"
+          style="width: 100%; padding: 8px; margin-top: 5px"
+        />
+      </div>
+      <div class="attendance-wrapper">
+        <div class="attendance-grid" id="attendance-days"></div>
+      </div>
+    </section>
+
+    <div class="modal-overlay" id="modalOverlay">
+      <div class="modal">
+        <input type="text" id="editInput" />
+        <div class="modal-buttons">
+          <button class="cancel-btn" onclick="closeModal()">Cancel</button>
+          <button class="save-btn" onclick="saveModal()">Save</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <script src="schedule.js"></script>
+  </body>
+</html>

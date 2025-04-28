@@ -1,0 +1,432 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
+  padding: 20px;
+}
+
+header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+h1 {
+  font-size: 2em;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+h2,
+h3 {
+  color: #2c3e50;
+}
+
+.schedule-container {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+@media (max-width: 700px) {
+  .schedule-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+.day-card {
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s;
+}
+
+.day-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.day-card h2 {
+  font-size: 1.4em;
+  margin-bottom: 15px;
+  border-bottom: 1px solid #ddd;
+  padding-bottom: 8px;
+}
+
+.time-block {
+  margin-bottom: 15px;
+}
+
+.time-label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 5px;
+  color: #2c3e50;
+  cursor: pointer;
+  position: relative;
+}
+
+.time-label:hover::after {
+  content: "Edit time";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #3498db;
+  color: white;
+  font-size: 0.75em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transform: translateY(-100%);
+}
+
+textarea {
+  width: 100%;
+  min-height: 50px;
+  resize: vertical;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1em;
+  background-color: #fff;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+textarea:hover {
+  border-color: #3498db;
+  background-color: #f0f8ff;
+}
+
+textarea::placeholder {
+  color: #aaa;
+}
+
+.fixed-times {
+  background: #ecf0f1;
+  padding: 10px;
+  border-radius: 6px;
+  text-align: center;
+  font-weight: bold;
+  color: #7f8c8d;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  position: relative;
+}
+
+.fixed-times:hover {
+  background-color: #dde6f1;
+}
+
+.fixed-times:hover::after {
+  content: "Edit activity";
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #3498db;
+  color: white;
+  font-size: 0.75em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  transform: translateY(-100%);
+}
+
+/* download button PDF */
+.download-button {
+  margin: 30px auto 0;
+  display: block;
+  padding: 12px 30px;
+  font-size: 1em;
+  background-color: #3498db;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.download-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.08);
+}
+
+.download-button:active {
+  transform: scale(0.96);
+}
+
+/* Attendance Section */
+.attendance-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.attendance-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 20px;
+  max-width: 1400px;
+}
+
+@media (max-width: 700px) {
+  .attendance-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.attendance-card {
+  background: #fff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  font-size: 0.9em;
+  transition: box-shadow 0.3s;
+}
+
+.attendance-card:hover {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+}
+
+.attendance-card h3 {
+  font-size: 1.1em;
+  margin-bottom: 10px;
+  color: #2c3e50;
+}
+
+.attendance-card input[type="date"],
+.attendance-card input[type="text"] {
+  padding: 8px;
+  font-size: 1em;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  transition: border-color 0.3s, background-color 0.3s;
+}
+
+.attendance-card input[type="date"]:hover,
+.attendance-card input[type="text"]:hover {
+  border-color: #3498db;
+  background-color: #f0f8ff;
+}
+
+.attendance-card button {
+  padding: 8px 12px;
+  font-size: 0.85em;
+  background-color: #3498db;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  position: relative;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.attendance-card button:hover {
+  background-color: #2980b9;
+  transform: scale(1.08);
+}
+
+.attendance-card button:active {
+  transform: scale(0.96);
+}
+
+/* Tooltip for Add and Remove Buttons */
+.attendance-card button::after {
+  content: attr(data-tooltip);
+  position: absolute;
+  top: -3px;
+  left: 20%;
+  transform: translateX(-50%) translateY(-10px);
+  background: #3498db;
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75em;
+  white-space: nowrap;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.attendance-card button:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(-20px);
+  background-color: #2980b9;
+}
+
+.options-menu {
+  display: none;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 8px;
+}
+@media print {
+  .hide-in-pdf,
+  .options-menu {
+    display: none !important;
+  }
+}
+
+/* PDF scaling */
+.attendance-grid.pdf-mode {
+  transform: scale(0.75);
+  transform-origin: top center;
+}
+
+@media print {
+  .attendance-grid {
+    transform: scale(0.75);
+    transform-origin: top center;
+  }
+  .hide-in-pdf {
+    display: none;
+  }
+}
+
+.hide-in-pdf {
+  display: block;
+}
+
+/* Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  width: 300px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.modal input {
+  padding: 10px;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+.modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+}
+
+.modal-buttons button {
+  padding: 8px 16px;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.save-btn {
+  background-color: #3498db;
+  color: white;
+}
+
+.cancel-btn {
+  background-color: #7f8c8d;
+  color: white;
+}
+
+/* activity schedule button options  */
+.small-option-btn {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 8px 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 0.85em;
+  transition: background-color 0.3s, transform 0.2s;
+}
+.small-option-btn:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+.small-option-btn:active {
+  transform: scale(0.95);
+}
+
+/* ! Home Page styles  */
+.employee-list {
+  list-style: none;
+  padding: 0;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.employee-list li {
+  background: #fff;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.action-button {
+  background-color: #3498db;
+  color: white;
+  border: none;
+  padding: 12px 24px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 1em;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.action-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.05);
+}
+
+.action-button:active {
+  transform: scale(0.95);
+}
+
+.hidden {
+  display: none;
+}
+
+.employee-form {
+  background: #fff;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 400px;
+  margin: 20px auto;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.cancel-button {
+  background-color: #7f8c8d;
+}
+
+.cancel-button:hover {
+  background-color: #626e74;
+}
