@@ -9,6 +9,13 @@ const scheduleTimes = [
   { time: "3:00 PM", label: "Transportation", fixed: true },
 ];
 
+function getEmployeeNameFromURL() {
+  const params = new URLSearchParams(window.location.search);
+  return params.get("name") || "";
+}
+
+const currentEmployee = getEmployeeNameFromURL();
+
 const scheduleContainer = document.getElementById("schedule");
 let currentEditableElement = null;
 
@@ -40,6 +47,10 @@ days.forEach((day) => {
     } else {
       const textarea = document.createElement("textarea");
       textarea.placeholder = "Enter activity...";
+      textarea.value = getSavedSchedule(currentEmployee, day, block.time); // ⬅ Load value
+      textarea.addEventListener("input", () => {
+        saveSchedule(currentEmployee, day, block.time, textarea.value); // ⬅ Save value
+      });
       timeBlock.appendChild(textarea);
     }
 
@@ -49,6 +60,19 @@ days.forEach((day) => {
   createDayOptions(dayCard, day);
   scheduleContainer.appendChild(dayCard);
 });
+
+function getSavedSchedule(employee, day, time) {
+  const data = JSON.parse(localStorage.getItem(`schedule_${employee}`)) || {};
+  return data[day]?.[time] || "";
+}
+
+function saveSchedule(employee, day, time, value) {
+  const key = `schedule_${employee}`;
+  const data = JSON.parse(localStorage.getItem(key)) || {};
+  if (!data[day]) data[day] = {};
+  data[day][time] = value;
+  localStorage.setItem(key, JSON.stringify(data));
+}
 
 function openModal(element) {
   currentEditableElement = element;
@@ -197,54 +221,45 @@ function addClient(day) {
 }
 
 function saveAttendanceData() {
-  attendanceData.employeeName = document.getElementById("employeeName").value;
+  attendanceData.employeeName = currentEmployee;
   daysOfWeek.forEach((day) => {
     attendanceData.days[day].date = document.getElementById(
       `${day}-date`
     ).value;
     attendanceData.days[day].clients = Array.from(
-      document.querySelectorAll(`#${day}-clientList li`)
-    ).map((li) => li.childNodes[0].nodeValue.trim());
+      document.querySelectorAll(`#${day}-clientList li span`)
+    ).map((span) => span.textContent.trim());
   });
-  localStorage.setItem("attendanceData", JSON.stringify(attendanceData));
+  localStorage.setItem(
+    `attendance_${currentEmployee}`,
+    JSON.stringify(attendanceData)
+  );
 }
 
 function loadAttendanceData() {
-  const data = JSON.parse(localStorage.getItem("attendanceData"));
+  const data = JSON.parse(
+    localStorage.getItem(`attendance_${currentEmployee}`)
+  );
   if (data) {
     attendanceData = data;
-    document.getElementById("employeeName").value = data.employeeName || "";
     daysOfWeek.forEach((day) => {
       document.getElementById(`${day}-date`).value = data.days[day]?.date || "";
       const clientList = document.getElementById(`${day}-clientList`);
       clientList.innerHTML = "";
       (data.days[day]?.clients || []).forEach((name) => {
         const li = document.createElement("li");
-        li.style.marginBottom = "10px";
-        li.style.display = "flex";
-        li.style.justifyContent = "space-between";
-        li.style.alignItems = "center";
-        li.style.background = "#ecf0f1";
-        li.style.padding = "8px";
-        li.style.borderRadius = "4px";
-        li.textContent = name;
-
-        const removeBtn = document.createElement("button");
-        removeBtn.textContent = "Remove";
-        removeBtn.setAttribute("data-tooltip", "Add client");
-        removeBtn.style.backgroundColor = "#e74c3c";
-        removeBtn.style.color = "white";
-        removeBtn.style.border = "none";
-        removeBtn.style.padding = "5px 10px";
-        removeBtn.style.borderRadius = "4px";
-        removeBtn.style.cursor = "pointer";
-        removeBtn.style.marginLeft = "10px";
-        removeBtn.onclick = function () {
+        li.innerHTML = `
+          <span>${name}</span>
+          <div class="hide-in-pdf">
+            <button data-tooltip="Remove client" style="margin-left: 10px; background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
+              Remove
+            </button>
+          </div>
+        `;
+        li.querySelector("button").onclick = () => {
           li.remove();
           saveAttendanceData();
         };
-
-        li.appendChild(removeBtn);
         clientList.appendChild(li);
       });
     });
@@ -379,12 +394,6 @@ function addTimeBlock(dayCard) {
 
   const options = dayCard.querySelector('div[style*="flex-direction: column"]');
   dayCard.insertBefore(timeBlock, options);
-}
-
-
-function getEmployeeNameFromURL() {
-  const params = new URLSearchParams(window.location.search);
-  return params.get("name") || "";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
