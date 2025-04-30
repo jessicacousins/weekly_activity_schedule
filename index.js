@@ -5,18 +5,37 @@ document.addEventListener("DOMContentLoaded", () => {
   const employeeForm = document.getElementById("employeeForm");
   const newEmployeeNameInput = document.getElementById("newEmployeeName");
   const cancelFormBtn = document.getElementById("cancelFormBtn");
-
   function loadEmployees() {
     const employees = JSON.parse(localStorage.getItem("employees")) || [];
     employeeList.innerHTML = "";
+
     employees.forEach((name) => {
       const li = document.createElement("li");
+
       const link = document.createElement("a");
       link.href = `schedule.html?name=${encodeURIComponent(name)}`;
       link.textContent = name;
       link.style.textDecoration = "none";
       link.style.color = "#3498db";
+
+      const removeBtn = document.createElement("button");
+      removeBtn.textContent = "Remove";
+      removeBtn.classList.add("action-button", "cancel-button");
+      removeBtn.style.marginLeft = "10px";
+      removeBtn.style.padding = "6px 12px";
+      removeBtn.style.fontSize = "0.85em";
+      removeBtn.onclick = () => {
+        if (confirm(`Remove ${name} and all related data?`)) {
+          const updatedEmployees = employees.filter((e) => e !== name);
+          localStorage.setItem("employees", JSON.stringify(updatedEmployees));
+          localStorage.removeItem(`schedule_${name}`);
+          localStorage.removeItem(`attendance_${name}`);
+          loadEmployees();
+        }
+      };
+
       li.appendChild(link);
+      li.appendChild(removeBtn);
       employeeList.appendChild(li);
     });
   }
