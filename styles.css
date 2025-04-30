@@ -397,6 +397,12 @@ textarea::placeholder {
   align-items: center;
 }
 
+.employee-list li:hover {
+  background-color: #f0f8ff;
+  transform: scale(1.01);
+  transition: all 0.2s ease-in-out;
+}
+
 .action-button {
   background-color: #3498db;
   color: white;
