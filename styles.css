@@ -509,3 +509,28 @@ textarea::placeholder {
   font-size: 0.95em;
   color: #555;
 }
+
+/* Home page visual enhancements */
+
+.employee-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 20px;
+  padding: 0;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.employee-list li {
+  background: #ffffff;
+  padding: 15px 20px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.07);
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  transition: all 0.2s ease-in-out;
+}
+.employee-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
