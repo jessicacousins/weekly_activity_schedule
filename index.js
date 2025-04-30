@@ -20,6 +20,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const removeBtn = document.createElement("button");
       removeBtn.textContent = "Remove";
+      removeBtn.title = "Remove employee";
       removeBtn.classList.add("action-button", "cancel-button");
       removeBtn.style.marginLeft = "10px";
       removeBtn.style.padding = "6px 12px";
