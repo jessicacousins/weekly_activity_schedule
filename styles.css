@@ -535,3 +535,41 @@ textarea::placeholder {
   transform: translateY(-2px);
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
 }
+
+.dashboard-visuals {
+  max-width: 1100px;
+  margin: 0 auto 50px;
+  padding: 0 20px;
+}
+
+.heatmap-grid {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.heatmap-row {
+  display: flex;
+}
+
+.heatmap-time {
+  width: 90px;
+  font-weight: bold;
+  padding: 6px;
+}
+
+.heatmap-cell {
+  width: 120px;
+  padding: 10px 0;
+  text-align: center;
+  border-radius: 4px;
+  margin: 2px;
+  font-size: 0.9em;
+  color: #333;
+}
+
+.day-label {
+  font-weight: bold;
+  background-color: #f0f0f0 !important;
+}

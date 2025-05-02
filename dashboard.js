@@ -67,3 +67,114 @@ document.addEventListener("DOMContentLoaded", () => {
     dashboard.appendChild(employeeCard);
   });
 });
+
+// ! client bar graph
+function generateClientBarGraph() {
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const totals = {
+    Monday: 0,
+    Tuesday: 0,
+    Wednesday: 0,
+    Thursday: 0,
+    Friday: 0,
+  };
+
+  employees.forEach((emp) => {
+    const attendance =
+      JSON.parse(localStorage.getItem(`attendance_${emp}`)) || {};
+    if (attendance.days) {
+      days.forEach((day) => {
+        const clients = attendance.days[day]?.clients || [];
+        totals[day] += clients.length;
+      });
+    }
+  });
+
+  const ctx = document.getElementById("clientBarGraph").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: days,
+      datasets: [
+        {
+          label: "Total Clients Attended",
+          data: days.map((d) => totals[d]),
+          backgroundColor: "#3498db",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true },
+      },
+    },
+  });
+}
+
+// ! employee attendance heatmap
+function generateAttendanceHeatmap() {
+  const heatmap = document.getElementById("attendanceHeatmap");
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const times = [
+    "9:00 AM",
+    "10:00 AM",
+    "11:00 AM",
+    "12:00 PM",
+    "1:00 PM",
+    "2:00 PM",
+    "3:00 PM",
+  ];
+  const grid = {};
+
+  days.forEach((d) => {
+    grid[d] = {};
+    times.forEach((t) => (grid[d][t] = 0));
+  });
+
+  employees.forEach((emp) => {
+    const schedule = JSON.parse(localStorage.getItem(`schedule_${emp}`)) || {};
+    days.forEach((day) => {
+      const daily = schedule[day] || {};
+      times.forEach((time) => {
+        if (daily[time] && daily[time].trim() !== "") {
+          grid[day][time]++;
+        }
+      });
+    });
+  });
+
+  const headerRow = document.createElement("div");
+  headerRow.className = "heatmap-row";
+  headerRow.innerHTML =
+    "<div class='heatmap-time'></div>" +
+    days
+      .map((day) => `<div class='heatmap-cell day-label'>${day}</div>`)
+      .join("");
+  heatmap.appendChild(headerRow);
+
+  times.forEach((time) => {
+    const row = document.createElement("div");
+    row.className = "heatmap-row";
+    row.innerHTML =
+      `<div class='heatmap-time'>${time}</div>` +
+      days
+        .map((day) => {
+          const count = grid[day][time];
+          const intensity = Math.min(255, count * 40);
+          return `<div class='heatmap-cell' style='background-color: rgb(${
+            255 - intensity
+          }, ${255 - intensity}, 255);'>${count}</div>`;
+        })
+        .join("");
+    heatmap.appendChild(row);
+  });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  generateClientBarGraph();
+  generateAttendanceHeatmap();
+});
