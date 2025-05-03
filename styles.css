@@ -510,8 +510,6 @@ textarea::placeholder {
   color: #555;
 }
 
-/* Home page visual enhancements */
-
 .employee-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -572,4 +570,41 @@ textarea::placeholder {
 .day-label {
   font-weight: bold;
   background-color: #f0f0f0 !important;
+}
+
+/* top client list  */
+.top-clients-list {
+  list-style: none;
+  padding: 0;
+  margin: 20px 0;
+  max-width: 500px;
+}
+
+.top-clients-list li {
+  background-color: #f0f8ff;
+  padding: 10px 14px;
+  margin-bottom: 6px;
+  border-left: 4px solid #3498db;
+  border-radius: 4px;
+  font-size: 1em;
+}
+
+/* activity log area */
+.activity-log-list {
+  list-style: none;
+  padding: 0;
+  margin-top: 20px;
+  max-width: 700px;
+}
+
+.activity-log-list li {
+  background-color: #f9f9f9;
+  padding: 8px 12px;
+  margin-bottom: 5px;
+  border-left: 4px solid #888;
+  border-radius: 4px;
+  font-size: 0.95em;
+  font-family: "Courier New", Courier, monospace;
+  color: #333;
+  line-height: 1.4em;
 }

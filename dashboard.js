@@ -94,9 +94,119 @@ document.addEventListener("DOMContentLoaded", () => {
     employeeCard.appendChild(attendanceSection);
     dashboard.appendChild(employeeCard);
   });
+
+  generateClientBarGraph();
+  generateAttendanceHeatmap();
+  generateTopClientsList();
+  generateRadarChart();
+  renderActivityLog();
 });
 
-// ! Client Count Bar Graph
+// Top Clients Tracker
+function generateTopClientsList() {
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const clientMap = {};
+
+  employees.forEach((emp) => {
+    const attendance =
+      JSON.parse(localStorage.getItem(`attendance_${emp}`)) || {};
+    if (attendance.days) {
+      Object.values(attendance.days).forEach((entry) => {
+        (entry.clients || []).forEach((client) => {
+          clientMap[client] = (clientMap[client] || 0) + 1;
+        });
+      });
+    }
+  });
+
+  const sortedClients = Object.entries(clientMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 10);
+
+  const container = document.getElementById("topClientsList");
+  container.innerHTML = "";
+  sortedClients.forEach(([name, count]) => {
+    const li = document.createElement("li");
+    li.textContent = `${name} (${count} visits)`;
+    container.appendChild(li);
+  });
+}
+
+// Employee Utilization Radar Chart
+function generateRadarChart() {
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const datasets = [];
+
+  employees.forEach((employee) => {
+    const scheduleData =
+      JSON.parse(localStorage.getItem(`schedule_${employee}`)) || {};
+    const attendanceData =
+      JSON.parse(localStorage.getItem(`attendance_${employee}`)) || {};
+
+    let blocks = 0,
+      clients = 0,
+      daysAttended = 0;
+
+    days.forEach((day) => {
+      const schedule = scheduleData[day] || {};
+      blocks += Object.values(schedule).filter(
+        (val) => val && val.trim()
+      ).length;
+
+      const attended = attendanceData.days?.[day]?.clients || [];
+      if (attended.length) {
+        daysAttended++;
+        clients += attended.length;
+      }
+    });
+
+    datasets.push({
+      label: employee,
+      data: [blocks, daysAttended, clients],
+      fill: true,
+    });
+  });
+
+  const ctx = document.getElementById("radarChart").getContext("2d");
+  new Chart(ctx, {
+    type: "radar",
+    data: {
+      labels: ["Blocks Filled", "Days Attended", "Clients Seen"],
+      datasets,
+    },
+    options: {
+      responsive: true,
+      scales: {
+        r: {
+          beginAtZero: true,
+          suggestedMax: 10,
+        },
+      },
+    },
+  });
+}
+
+// Recent Activity Log
+function renderActivityLog() {
+  const log = JSON.parse(localStorage.getItem("activity_log")) || [];
+  const container = document.getElementById("activityLog");
+  container.innerHTML = "";
+
+  const sorted = log
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 20);
+
+  sorted.forEach((entry) => {
+    const li = document.createElement("li");
+    li.textContent = `${new Date(entry.timestamp).toLocaleString()} — ${
+      entry.message
+    }`;
+    container.appendChild(li);
+  });
+}
+
+// Client Count Bar Graph
 function generateClientBarGraph() {
   const employees = JSON.parse(localStorage.getItem("employees")) || [];
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -142,7 +252,7 @@ function generateClientBarGraph() {
   });
 }
 
-// ! Employee Attendance Heatmap
+// Attendance Heatmap
 function generateAttendanceHeatmap() {
   const heatmap = document.getElementById("attendanceHeatmap");
   const employees = JSON.parse(localStorage.getItem("employees")) || [];
@@ -201,8 +311,3 @@ function generateAttendanceHeatmap() {
     heatmap.appendChild(row);
   });
 }
-
-document.addEventListener("DOMContentLoaded", () => {
-  generateClientBarGraph();
-  generateAttendanceHeatmap();
-});
