@@ -1,6 +1,5 @@
 document.addEventListener("DOMContentLoaded", () => {
   const dashboard = document.getElementById("dashboard");
-
   const employees = JSON.parse(localStorage.getItem("employees")) || [];
 
   employees.forEach((employee) => {
@@ -15,6 +14,36 @@ document.addEventListener("DOMContentLoaded", () => {
       JSON.parse(localStorage.getItem(`schedule_${employee}`)) || {};
     const attendanceData =
       JSON.parse(localStorage.getItem(`attendance_${employee}`)) || {};
+
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+    let totalBlocks = 0;
+    let totalClients = 0;
+    let attendedDays = 0;
+
+    days.forEach((day) => {
+      const blocks = scheduleData[day] || {};
+      totalBlocks += Object.values(blocks).filter(
+        (val) => val && val.trim() !== ""
+      ).length;
+
+      const dayAttendance = attendanceData.days?.[day]?.clients || [];
+      if (dayAttendance.length > 0) {
+        totalClients += dayAttendance.length;
+        attendedDays++;
+      }
+    });
+
+    const summarySection = document.createElement("div");
+    summarySection.className = "section";
+    summarySection.innerHTML = `
+      <h3>Weekly Summary</h3>
+      <ul style="list-style: disc; margin-left: 20px;">
+        <li><strong>Time Blocks Filled:</strong> ${totalBlocks}</li>
+        <li><strong>Days Attended:</strong> ${attendedDays}</li>
+        <li><strong>Total Clients Seen:</strong> ${totalClients}</li>
+      </ul>
+    `;
+    employeeCard.appendChild(summarySection);
 
     const scheduleSection = document.createElement("div");
     scheduleSection.className = "section";
@@ -63,12 +92,11 @@ document.addEventListener("DOMContentLoaded", () => {
 
     employeeCard.appendChild(scheduleSection);
     employeeCard.appendChild(attendanceSection);
-
     dashboard.appendChild(employeeCard);
   });
 });
 
-// ! client bar graph
+// ! Client Count Bar Graph
 function generateClientBarGraph() {
   const employees = JSON.parse(localStorage.getItem("employees")) || [];
   const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
@@ -114,7 +142,7 @@ function generateClientBarGraph() {
   });
 }
 
-// ! employee attendance heatmap
+// ! Employee Attendance Heatmap
 function generateAttendanceHeatmap() {
   const heatmap = document.getElementById("attendanceHeatmap");
   const employees = JSON.parse(localStorage.getItem("employees")) || [];
