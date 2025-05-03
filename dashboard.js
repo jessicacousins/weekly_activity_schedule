@@ -313,7 +313,6 @@ function generateAttendanceHeatmap() {
 }
 
 async function downloadDashboardPDF() {
-  // Load library if not yet present
   if (typeof html2pdf === "undefined") {
     await new Promise((resolve, reject) => {
       const script = document.createElement("script");
@@ -325,38 +324,31 @@ async function downloadDashboardPDF() {
     });
   }
 
-  // Create container to capture content
   const container = document.createElement("div");
   container.style.padding = "20px";
   container.style.fontSize = "12px";
   container.style.maxWidth = "1000px";
   container.style.margin = "0 auto";
 
-  // Add timestamp
   const timestamp = document.createElement("p");
   timestamp.textContent = "Report generated: " + new Date().toLocaleString();
   timestamp.style.marginBottom = "20px";
   timestamp.style.fontSize = "0.85em";
   container.appendChild(timestamp);
 
-  // Clone dashboard visuals
   const visuals = document.querySelector(".dashboard-visuals")?.cloneNode(true);
   if (visuals) container.appendChild(visuals);
 
-  // Add page break
   const pageBreak = document.createElement("div");
   pageBreak.style.pageBreakBefore = "always";
   container.appendChild(pageBreak);
 
-  // Clone full employee dashboard cards
   const dashboard = document.getElementById("dashboard")?.cloneNode(true);
   if (dashboard) container.appendChild(dashboard);
 
-  // Temporarily inject to DOM for rendering
   container.classList.add("pdf-temp-container");
   document.body.appendChild(container);
 
-  // Generate and download PDF
   const opt = {
     margin: 0.4,
     filename: "Main_Dashboard_Report.pdf",
@@ -367,6 +359,5 @@ async function downloadDashboardPDF() {
 
   await html2pdf().from(container).set(opt).save();
 
-  // Clean up after
   document.body.removeChild(container);
 }
