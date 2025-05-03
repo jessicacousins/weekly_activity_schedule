@@ -608,3 +608,20 @@ textarea::placeholder {
   color: #333;
   line-height: 1.4em;
 }
+
+@media print {
+  .download-button,
+  .hide-in-pdf {
+    display: none !important;
+  }
+  .dashboard-container {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    transform: scale(0.85);
+    transform-origin: top left;
+  }
+  .dashboard-visuals {
+    transform: scale(0.85);
+    transform-origin: top left;
+  }
+}

@@ -14,6 +14,10 @@
       >
     </header>
 
+    <button class="download-button" onclick="downloadDashboardPDF()">
+      ⬇️ Download Dashboard PDF
+    </button>
+
     <section class="dashboard-visuals">
       <h2>Client Count Bar Graph</h2>
       <canvas id="clientBarGraph" height="200"></canvas>
@@ -35,6 +39,9 @@
 
     <!-- Add Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Required for PDF generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+
     <script src="dashboard.js"></script>
   </body>
 </html>
