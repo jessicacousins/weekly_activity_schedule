@@ -189,9 +189,17 @@ function addClient(day) {
   li.style.padding = "8px";
   li.style.borderRadius = "4px";
 
-  const clientNameSpan = document.createElement("span");
-  clientNameSpan.textContent = name;
-  li.appendChild(clientNameSpan);
+  // const clientNameSpan = document.createElement("span");
+  // clientNameSpan.textContent = name;
+  // li.appendChild(clientNameSpan);
+
+  const clientLink = document.createElement("a");
+  clientLink.href = `client.html?client=${encodeURIComponent(name)}`;
+  clientLink.textContent = name;
+  clientLink.style.color = "#2c3e50";
+  clientLink.style.textDecoration = "underline";
+  clientLink.style.fontWeight = "600";
+  li.appendChild(clientLink);
 
   const removeWrapper = document.createElement("div");
   removeWrapper.className = "hide-in-pdf";
@@ -248,14 +256,42 @@ function loadAttendanceData() {
       clientList.innerHTML = "";
       (data.days[day]?.clients || []).forEach((name) => {
         const li = document.createElement("li");
-        li.innerHTML = `
-          <span>${name}</span>
-          <div class="hide-in-pdf">
-            <button data-tooltip="Remove client" style="margin-left: 10px; background: #e74c3c; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">
-              Remove
-            </button>
-          </div>
-        `;
+        li.style.marginBottom = "10px";
+        li.style.display = "flex";
+        li.style.justifyContent = "space-between";
+        li.style.alignItems = "center";
+        li.style.background = "#ecf0f1";
+        li.style.padding = "8px";
+        li.style.borderRadius = "4px";
+
+        const link = document.createElement("a");
+        link.href = `client.html?client=${encodeURIComponent(name)}`;
+        link.textContent = name;
+        link.style.color = "#2c3e50";
+        link.style.textDecoration = "underline";
+        link.style.fontWeight = "600";
+
+        const removeWrapper = document.createElement("div");
+        removeWrapper.className = "hide-in-pdf";
+
+        const removeBtn = document.createElement("button");
+        removeBtn.textContent = "Remove";
+        removeBtn.setAttribute("data-tooltip", "Remove client");
+        removeBtn.style.backgroundColor = "#e74c3c";
+        removeBtn.style.color = "white";
+        removeBtn.style.border = "none";
+        removeBtn.style.padding = "5px 10px";
+        removeBtn.style.borderRadius = "4px";
+        removeBtn.style.cursor = "pointer";
+        removeBtn.onclick = () => {
+          li.remove();
+          saveAttendanceData();
+        };
+
+        removeWrapper.appendChild(removeBtn);
+        li.appendChild(link);
+        li.appendChild(removeWrapper);
+
         li.querySelector("button").onclick = () => {
           li.remove();
           saveAttendanceData();

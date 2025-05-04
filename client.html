@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Client Notes</title>
+    <link rel="stylesheet" href="client.css" />
+  </head>
+  <body>
+    <div id="navbar-container"></div>
+    <div class="client-comment-container">
+      <h1 id="clientNameHeader">Client Notes</h1>
+
+      <div class="day-inputs">
+        <label for="noteDate">Select Date:</label>
+        <input type="date" id="noteDate" required />
+
+        <label for="dailyComment">Enter Comment:</label>
+        <textarea
+          id="dailyComment"
+          placeholder="Write today's note..."
+        ></textarea>
+
+        <button onclick="saveComment()">Save Note</button>
+      </div>
+
+      <h2>Comment History</h2>
+      <input type="date" id="filterStart" /> to
+      <input type="date" id="filterEnd" />
+      <button class="download-button" onclick="downloadPDF()">
+        Download PDF
+      </button>
+
+      <div id="commentGrid" class="comment-history-grid"></div>
+    </div>
+
+    <script src="client.js"></script>
+    <script>
+      fetch("navbar.html")
+        .then((res) => res.text())
+        .then((html) => {
+          document.getElementById("navbar-container").innerHTML = html;
+        });
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+  </body>
+</html>
