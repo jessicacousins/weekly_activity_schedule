@@ -70,6 +70,18 @@
       </div>
     </div>
 
+    <footer class="site-footer">
+      <p>
+        &copy; <span id="footer-year"></span> JMC Resources. All rights
+        reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("footer-year").textContent =
+        new Date().getFullYear();
+    </script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
     <script src="schedule.js"></script>
   </body>

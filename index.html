@@ -64,6 +64,18 @@
       <ul id="employeeList" class="employee-list"></ul>
     </section>
 
+    <footer class="site-footer">
+      <p>
+        &copy; <span id="footer-year"></span> JMC Resources. All rights
+        reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("footer-year").textContent =
+        new Date().getFullYear();
+    </script>
+
     <script src="index.js"></script>
     <script>
       fetch("navbar.html")

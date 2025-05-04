@@ -48,6 +48,18 @@
 
     <section class="dashboard-container" id="dashboard"></section>
 
+    <footer class="site-footer">
+      <p>
+        &copy; <span id="footer-year"></span> JMC Resources. All rights
+        reserved.
+      </p>
+    </footer>
+
+    <script>
+      document.getElementById("footer-year").textContent =
+        new Date().getFullYear();
+    </script>
+
     <!-- Add Chart.js library -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <!-- Required for PDF generation -->
