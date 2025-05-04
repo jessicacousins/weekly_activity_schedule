@@ -99,6 +99,62 @@ h3 {
   color: #2c3e50;
 }
 
+/* directions  */
+.instructions-section {
+  max-width: 880px;
+  margin: 40px auto;
+  padding: 30px 35px;
+  background-color: #ffffff;
+  border: 1px solid #e0e6ed;
+  border-radius: 12px;
+  font-size: 1rem;
+  color: #1c1e21;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
+    Arial, sans-serif;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
+  line-height: 1.6;
+  transition: box-shadow 0.2s ease-in-out;
+}
+
+.instructions-section:hover {
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+}
+
+.instructions-section h2 {
+  font-size: 1.4rem;
+  margin-bottom: 18px;
+  color: #050505;
+  font-weight: 600;
+}
+
+.instructions-section ul {
+  list-style: none;
+  padding-left: 0;
+  margin-top: 16px;
+}
+
+.instructions-section ul li {
+  /* position: relative; */
+  padding-left: 24px;
+  margin-bottom: 12px;
+}
+
+.instructions-section ul li::before {
+  content: "•";
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: #3498db;
+  font-size: 1.3em;
+  line-height: 1;
+}
+
+.instructions-section p {
+  margin-top: 16px;
+  color: #606770;
+  font-size: 0.97rem;
+}
+
 .employeeListNames {
   text-align: center;
   margin-bottom: 20px;
