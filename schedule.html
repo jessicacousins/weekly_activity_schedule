@@ -7,29 +7,36 @@
     <link href="styles.css" rel="stylesheet" />
   </head>
   <body>
-    <header>
-      <h1>Weekly Activity Schedule</h1>
-      <h3>Monday - Friday</h3>
-      <button class="download-button" onclick="downloadPDF()">
-         Download as PDF   
-      </button>
-      <button
-        class="action-button"
-        onclick="window.location.href='index.html'"
-        style="
-          margin-top: 15px;
-          background-color: #4caf50;
-          color: white;
-          padding: 10px 15px;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
-          font-size: 1em;
-        "
-      >
-                ← Back to Home      
-      </button>
-    </header>
+    <div id="navbar-container"></div>
+    <script>
+      fetch("navbar.html")
+        .then((res) => res.text())
+        .then((html) => {
+          document.getElementById("navbar-container").innerHTML = html;
+        });
+    </script>
+
+    <h1>Weekly Activity Schedule</h1>
+    <h3>Monday - Friday</h3>
+    <button class="download-button" onclick="downloadPDF()">
+        Download as PDF   
+    </button>
+    <button
+      class="action-button"
+      onclick="window.location.href='index.html'"
+      style="
+        margin-top: 15px;
+        background-color: #4caf50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        font-size: 1em;
+      "
+    >
+              ← Back to Home      
+    </button>
 
     <div class="schedule-container" id="schedule"></div>
 

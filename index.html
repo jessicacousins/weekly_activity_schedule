@@ -8,12 +8,21 @@
   </head>
   <body>
     <header>
+      <div id="navbar-container"></div>
+
+      <a href="index.html" class="logo-link">
+        <img
+          src="logo.png"
+          alt="Weekly Schedule Maker Logo"
+          class="site-logo"
+        />
+      </a>
       <h1 class="title-homepage">Weekly Schedule Maker</h1>
       <button id="openEmployeeFormBtn" class="action-button">
         Create New Employee
       </button>
       <a href="dashboard.html" class="action-button" style="margin-top: 20px"
-        >View Main Dashboard</a
+        >View Manager Dashboard</a
       >
     </header>
 
@@ -56,5 +65,12 @@
     </section>
 
     <script src="index.js"></script>
+    <script>
+      fetch("navbar.html")
+        .then((res) => res.text())
+        .then((html) => {
+          document.getElementById("navbar-container").innerHTML = html;
+        });
+    </script>
   </body>
 </html>

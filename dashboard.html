@@ -8,15 +8,26 @@
   </head>
   <body>
     <header>
-      <h1 class="mainDashboardTitle">Main Dashboard</h1>
-      <a href="index.html" class="action-button" style="margin-top: 20px"
-        >← Back to Home</a
-      >
+      <div id="navbar-container"></div>
+      <script>
+        fetch("navbar.html")
+          .then((res) => res.text())
+          .then((html) => {
+            document.getElementById("navbar-container").innerHTML = html;
+          });
+      </script>
     </header>
 
-    <button class="download-button" onclick="downloadDashboardPDF()">
-      ⬇️ Download Dashboard PDF
-    </button>
+    <div class="logo-container">
+      <img src="logo.png" alt="Company Logo" class="dashboard-logo" />
+      <div>
+        <h1 class="mainDashboardTitle">Main Dashboard</h1>
+        <p class="dashboard-subtitle">Weekly Schedules & Attendance Overview</p>
+      </div>
+    </div>
+    <a href="index.html" class="action-button" style="margin-top: 20px"
+      >← Back to Home</a
+    >
 
     <section class="dashboard-visuals">
       <h2>Client Count Bar Graph</h2>
