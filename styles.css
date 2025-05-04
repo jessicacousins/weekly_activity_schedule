@@ -59,6 +59,31 @@ header {
   transform: scale(1.05);
 }
 
+.animated-bot-logo {
+  width: 120px;
+  height: auto;
+  animation: floatBot 3s ease-in-out infinite;
+  display: block;
+  margin: 0 auto;
+  transition: transform 0.3s;
+}
+
+.animated-bot-logo:hover {
+  transform: scale(1.1) rotate(2deg);
+}
+
+@keyframes floatBot {
+  0% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+  100% {
+    transform: translateY(0px);
+  }
+}
+
 .logo-link {
   display: inline-block;
   text-align: center;
@@ -79,6 +104,7 @@ header {
   width: auto;
   object-fit: contain;
   border-radius: 8px;
+  animation: floatBot 3s ease-in-out infinite;
 }
 
 .dashboard-subtitle {
