@@ -25,10 +25,32 @@
       </div>
 
       <h2>Comment History</h2>
-      <input type="date" id="filterStart" /> to
+      <!-- <input type="date" id="filterStart" /> to
       <input type="date" id="filterEnd" />
       <button class="download-button" onclick="downloadPDF()">
         Download PDF
+      </button> -->
+      <div class="pdf-options">
+        <h3>Download Options:</h3>
+        <label>
+          <input type="radio" name="pdfMode" value="range" checked />
+          Download comments within date range:
+        </label>
+        <br />
+        <input type="date" id="filterStart" /> to
+        <input type="date" id="filterEnd" />
+        <br />
+        <label style="margin-top: 10px; display: inline-block">
+          <input type="radio" name="pdfMode" value="all" />
+          Download all comments
+        </label>
+        <br /><br />
+        <button class="download-button" onclick="downloadPDF()">
+          Download PDF
+        </button>
+      </div>
+      <button class="download-button" onclick="showAllComments()">
+        Show All Comments
       </button>
 
       <div id="commentGrid" class="comment-history-grid"></div>
