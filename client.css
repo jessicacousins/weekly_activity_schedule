@@ -1,28 +1,139 @@
-.client-comment-container {
-  max-width: 800px;
-  margin: 30px auto;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background-color: #f4f6f8;
+  color: #333;
   padding: 20px;
+}
+
+/* daily comments  */
+.client-comment-container {
+  max-width: 860px;
+  margin: 40px auto;
+  padding: 30px 40px;
+  background: #ffffff;
+  border-radius: 12px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
+.client-comment-container:hover {
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+}
+
+.day-inputs {
+  margin-bottom: 30px;
+}
+
+.day-inputs label {
+  display: block;
+  margin-top: 10px;
+  font-weight: 600;
+  color: #2c3e50;
+}
+
+.day-inputs input[type="date"],
+.day-inputs textarea {
+  width: 100%;
+  font-size: 1em;
+  padding: 12px;
+  margin-top: 6px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
   background: #fff;
-  border-radius: 10px;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  transition: border-color 0.3s ease, background-color 0.3s ease;
+}
+
+.day-inputs input[type="date"]:hover,
+.day-inputs textarea:hover {
+  border-color: #3498db;
+  background-color: #f0f8ff;
 }
 
 .day-inputs textarea {
-  width: 100%;
-  height: 100px;
-  margin: 10px 0;
+  resize: vertical;
+  min-height: 100px;
 }
 
+/* comment history display */
 .comment-history-grid {
-  margin-top: 20px;
+  margin-top: 30px;
 }
 
 .comment-entry {
-  padding: 10px;
-  margin: 10px 0;
+  padding: 15px 20px;
+  margin-bottom: 15px;
   border-left: 4px solid #3498db;
   background: #f9f9f9;
+  border-radius: 8px;
+  transition: background-color 0.3s ease;
+}
+
+.comment-entry:hover {
+  background: #f0f8ff;
+}
+
+.download-button {
+  display: block;
+  margin: 30px auto 0;
+  padding: 12px 28px;
+  background-color: #3498db;
+  color: white;
+  font-size: 1em;
+  font-weight: 500;
+  border: none;
   border-radius: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.2s;
+}
+
+.download-button:hover {
+  background-color: #2980b9;
+  transform: scale(1.06);
+}
+
+.download-button:active {
+  transform: scale(0.96);
+}
+
+/* PDF  */
+.pdf-options {
+  margin-top: 40px;
+  padding: 20px;
+  background-color: #fdfdfd;
+  border: 1px solid #e1e1e1;
+  border-radius: 8px;
+}
+
+.pdf-options h3 {
+  font-size: 1.1em;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.pdf-options label {
+  display: block;
+  margin: 12px 0;
+  font-size: 0.95em;
+  color: #333;
+}
+
+.pdf-options input[type="date"] {
+  padding: 8px;
+  font-size: 1em;
+  margin: 10px 5px 0 0;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  transition: border-color 0.3s ease;
+}
+
+.pdf-options input[type="date"]:hover {
+  border-color: #3498db;
 }
 
 /* ! scroll bar  */
