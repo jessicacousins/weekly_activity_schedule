@@ -238,7 +238,7 @@ function generateClientBarGraph() {
         {
           label: "Total Clients Attended",
           data: days.map((d) => totals[d]),
-          backgroundColor: "#3498db",
+          backgroundColor: "#0456a1",
         },
       ],
     },
