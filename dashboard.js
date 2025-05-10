@@ -100,6 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
   generateTopClientsList();
   generateRadarChart();
   renderActivityLog();
+  updateDashboardStats();
 });
 
 // Top Clients Tracker
@@ -360,4 +361,22 @@ async function downloadDashboardPDF() {
   await html2pdf().from(container).set(opt).save();
 
   document.body.removeChild(container);
+}
+
+// stats container
+function updateDashboardStats() {
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const employeeCount = employees.length;
+  const scheduleKeys = Object.keys(localStorage).filter((k) =>
+    k.startsWith("schedule_")
+  );
+  const clientKeys = Object.keys(localStorage).filter((k) =>
+    k.startsWith("attendance_")
+  );
+
+  document.getElementById("stats-box").innerHTML = `
+    <strong>Employees:</strong> ${employeeCount} |
+    <strong>Schedules:</strong> ${scheduleKeys.length} |
+    <strong>Attendance Logs:</strong> ${clientKeys.length}
+  `;
 }
