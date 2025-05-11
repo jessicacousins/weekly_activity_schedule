@@ -472,3 +472,125 @@ function renderMostFrequentClients() {
     container.appendChild(li);
   });
 }
+
+// download weekly report button
+document
+  .getElementById("downloadWeeklyReportBtn")
+  .addEventListener("click", async () => {
+    const container = document.createElement("div");
+    container.style.padding = "30px";
+    container.style.maxWidth = "900px";
+    container.style.margin = "0 auto";
+    container.style.fontFamily = "'Roboto', sans-serif";
+    container.style.color = "#333";
+    container.style.fontSize = "0.95em";
+
+    const title = document.createElement("h1");
+    title.textContent = "Weekly Summary Report";
+    title.style.color = "#0456a1";
+    title.style.fontSize = "1.5em";
+    container.appendChild(title);
+
+    const time = document.createElement("p");
+    time.textContent = "Generated: " + new Date().toLocaleString();
+    time.style.marginBottom = "20px";
+    time.style.fontSize = "0.85em";
+    container.appendChild(time);
+
+    const employees = JSON.parse(localStorage.getItem("employees")) || [];
+    const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+
+    let totalBlocks = 0;
+    let totalClients = 0;
+    let attendanceMap = {
+      Monday: 0,
+      Tuesday: 0,
+      Wednesday: 0,
+      Thursday: 0,
+      Friday: 0,
+    };
+    let clientMap = {};
+
+    employees.forEach((emp) => {
+      const schedule =
+        JSON.parse(localStorage.getItem("schedule_" + emp)) || {};
+      const attendance =
+        JSON.parse(localStorage.getItem("attendance_" + emp)) || {};
+
+      days.forEach((day) => {
+        const blocks = schedule[day] || {};
+        totalBlocks += Object.values(blocks).filter(
+          (val) => val && val.trim()
+        ).length;
+
+        const clients = attendance.days?.[day]?.clients || [];
+        totalClients += clients.length;
+        attendanceMap[day] += clients.length;
+
+        clients.forEach((client) => {
+          clientMap[client] = (clientMap[client] || 0) + 1;
+        });
+      });
+    });
+
+    const blocks = document.createElement("p");
+    blocks.innerHTML =
+      "<strong>Total Time Blocks Filled:</strong> " + totalBlocks;
+    container.appendChild(blocks);
+
+    const clients = document.createElement("p");
+    clients.innerHTML = "<strong>Total Clients Seen:</strong> " + totalClients;
+    container.appendChild(clients);
+
+    const breakdown = document.createElement("ul");
+    const breakdownTitle = document.createElement("li");
+    breakdownTitle.innerHTML = "<strong>Clients Per Day:</strong>";
+    breakdown.appendChild(breakdownTitle);
+
+    days.forEach((day) => {
+      const li = document.createElement("li");
+      li.textContent = day + ": " + attendanceMap[day];
+      breakdown.appendChild(li);
+    });
+    container.appendChild(breakdown);
+
+    const topClients = Object.entries(clientMap)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 3);
+
+    const topList = document.createElement("ul");
+    const headingItem = document.createElement("li");
+    headingItem.innerHTML = "<strong>Top Clients:</strong>";
+    topList.appendChild(headingItem);
+
+    topClients.forEach(([name, count]) => {
+      const li = document.createElement("li");
+      li.textContent = name + " – " + count + " visits";
+      topList.appendChild(li);
+    });
+    container.appendChild(topList);
+
+    const notes = document.createElement("p");
+    notes.innerHTML =
+      "<strong>Manager Notes:</strong> ____________________________";
+    notes.style.marginTop = "30px";
+    container.appendChild(notes);
+
+    if (typeof html2pdf === "undefined") {
+      await new Promise((resolve, reject) => {
+        const script = document.createElement("script");
+        script.src =
+          "https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js";
+        script.onload = resolve;
+        script.onerror = reject;
+        document.body.appendChild(script);
+      });
+    }
+
+    html2pdf(container, {
+      margin: 0.5,
+      filename: "Weekly_Report.pdf",
+      html2canvas: { scale: 2 },
+      jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
+    });
+  });
