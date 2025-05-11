@@ -2,6 +2,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderRecentEmployees();
   renderDayBreakdownChart();
   renderMostFrequentClients();
+  renderDailyChangeLog();
 
   const dashboard = document.getElementById("dashboard");
   const employees = JSON.parse(localStorage.getItem("employees")) || [];
@@ -594,3 +595,39 @@ document
       jsPDF: { unit: "in", format: "letter", orientation: "portrait" },
     });
   });
+
+function renderDailyChangeLog() {
+  const container = document.getElementById("dailyChangeLog");
+  if (!container) return;
+
+  const log = JSON.parse(localStorage.getItem("activity_log")) || [];
+  const grouped = {};
+
+  log.forEach((entry) => {
+    const date = new Date(entry.timestamp).toLocaleDateString();
+    if (!grouped[date]) grouped[date] = [];
+    grouped[date].push(entry);
+  });
+
+  container.innerHTML = "";
+  Object.entries(grouped)
+    .sort((a, b) => new Date(b[0]) - new Date(a[0]))
+    .forEach(([date, entries]) => {
+      const section = document.createElement("div");
+      section.className = "log-day";
+
+      const header = document.createElement("h3");
+      header.textContent = date;
+      section.appendChild(header);
+
+      entries.forEach((entry) => {
+        const p = document.createElement("p");
+        p.textContent = `${new Date(entry.timestamp).toLocaleTimeString()} — ${
+          entry.message
+        }`;
+        section.appendChild(p);
+      });
+
+      container.appendChild(section);
+    });
+}
