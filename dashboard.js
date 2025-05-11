@@ -1,4 +1,8 @@
 document.addEventListener("DOMContentLoaded", () => {
+  renderRecentEmployees();
+  renderDayBreakdownChart();
+  renderMostFrequentClients();
+
   const dashboard = document.getElementById("dashboard");
   const employees = JSON.parse(localStorage.getItem("employees")) || [];
 
@@ -379,4 +383,92 @@ function updateDashboardStats() {
     <strong>Schedules:</strong> ${scheduleKeys.length} |
     <strong>Attendance Logs:</strong> ${clientKeys.length}
   `;
+}
+
+function renderRecentEmployees() {
+  const container = document.getElementById("recentEmployees");
+  if (!container) return;
+  const log = JSON.parse(localStorage.getItem("employee_log")) || [];
+  const sorted = log
+    .sort((a, b) => new Date(b.timestamp) - new Date(a.timestamp))
+    .slice(0, 10);
+  container.innerHTML = "";
+  sorted.forEach((entry) => {
+    const li = document.createElement("li");
+    li.textContent = `${new Date(entry.timestamp).toLocaleString()} — ${
+      entry.name
+    }`;
+    container.appendChild(li);
+  });
+}
+
+function renderDayBreakdownChart() {
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"];
+  const dayCounts = {
+    Monday: 0,
+    Tuesday: 0,
+    Wednesday: 0,
+    Thursday: 0,
+    Friday: 0,
+  };
+
+  employees.forEach((emp) => {
+    const schedule = JSON.parse(localStorage.getItem(`schedule_${emp}`)) || {};
+    days.forEach((day) => {
+      const blocks = schedule[day] || {};
+      if (Object.values(blocks).some((val) => val && val.trim() !== "")) {
+        dayCounts[day]++;
+      }
+    });
+  });
+
+  const ctx = document.getElementById("dayBreakdownChart").getContext("2d");
+  new Chart(ctx, {
+    type: "bar",
+    data: {
+      labels: days,
+      datasets: [
+        {
+          label: "Employees Scheduled",
+          data: days.map((d) => dayCounts[d]),
+          backgroundColor: "#2ecc71",
+        },
+      ],
+    },
+    options: {
+      responsive: true,
+      plugins: { legend: { display: false } },
+      scales: {
+        y: { beginAtZero: true },
+      },
+    },
+  });
+}
+
+function renderMostFrequentClients() {
+  const employees = JSON.parse(localStorage.getItem("employees")) || [];
+  const countMap = {};
+
+  employees.forEach((emp) => {
+    const attendance =
+      JSON.parse(localStorage.getItem(`attendance_${emp}`)) || {};
+    Object.values(attendance.days || {}).forEach(({ clients = [] }) => {
+      clients.forEach((client) => {
+        countMap[client] = (countMap[client] || 0) + 1;
+      });
+    });
+  });
+
+  const topClients = Object.entries(countMap)
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, 5);
+
+  const container = document.getElementById("topClientNames");
+  container.innerHTML = "";
+  topClients.forEach(([name, count]) => {
+    const li = document.createElement("li");
+    li.textContent = `${name} (${count} visits)`;
+    container.appendChild(li);
+  });
 }

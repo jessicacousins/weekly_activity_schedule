@@ -98,6 +98,12 @@ document.addEventListener("DOMContentLoaded", () => {
       const employees = JSON.parse(localStorage.getItem("employees")) || [];
       employees.push(name);
       localStorage.setItem("employees", JSON.stringify(employees));
+
+      const employeeLog =
+        JSON.parse(localStorage.getItem("employee_log")) || [];
+      employeeLog.push({ name, timestamp: new Date().toISOString() });
+      localStorage.setItem("employee_log", JSON.stringify(employeeLog));
+
       loadEmployees();
       employeeForm.reset();
       employeeFormSection.classList.add("hidden");
