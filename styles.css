@@ -160,8 +160,9 @@ h3 {
 .instructions-section h2 {
   font-size: 1.4rem;
   margin-bottom: 18px;
-  color: #050505;
+  color: #f83cc9bd;
   font-weight: 600;
+  letter-spacing: 2px;
 }
 
 .instructions-section ul {
@@ -188,8 +189,10 @@ h3 {
 
 .instructions-section p {
   margin-top: 16px;
-  color: #606770;
+  color: #bb008ca4;
   font-size: 0.97rem;
+  font-weight: bold;
+  letter-spacing: 1.2px;
 }
 
 .employeeListNames {
