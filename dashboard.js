@@ -433,7 +433,7 @@ function renderDayBreakdownChart() {
         {
           label: "Employees Scheduled",
           data: days.map((d) => dayCounts[d]),
-          backgroundColor: "#2ecc71",
+          backgroundColor: "#1eff008c",
         },
       ],
     },

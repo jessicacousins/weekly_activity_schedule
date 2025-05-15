@@ -630,8 +630,9 @@ textarea::placeholder {
 }
 
 .mainDashboardTitle {
-  color: #3282b8;
+  color: #1eff00;
   margin-bottom: 30px;
+  letter-spacing: 1px;
 }
 
 .employee-card {
@@ -692,6 +693,7 @@ textarea::placeholder {
   max-width: 1000px;
   margin: 0 auto;
 }
+
 .employee-list li {
   background: #ffffff;
   font-weight: 900;
@@ -818,15 +820,16 @@ textarea::placeholder {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #e0e0e0;
+  background: #222;
   border-radius: 10px;
 }
 ::-webkit-scrollbar-thumb {
-  background: #3498db;
+  background: #1eff008c;
   border-radius: 10px;
+  cursor: grab;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #2980b9;
+  background: #1eff00;
 }
 
 input[type="text"],
