@@ -695,7 +695,7 @@ textarea::placeholder {
 }
 
 .employee-list li {
-  background: #ffffff;
+  background: #222;
   font-weight: 900;
   padding: 15px 20px;
   border-radius: 10px;
