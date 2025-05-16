@@ -142,16 +142,18 @@ h3 {
   max-width: 880px;
   margin: 40px auto;
   padding: 30px 35px;
-  background-color: #ffffff;
+  background-color: #111;
   border: 1px solid #e0e6ed;
   border-radius: 12px;
   font-size: 1rem;
-  color: #1c1e21;
+  color: #d6fdd0;
+  font-size: 1.2rem;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica,
     Arial, sans-serif;
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.03);
   line-height: 1.6;
   transition: box-shadow 0.2s ease-in-out;
+  letter-spacing: 1px;
 }
 
 .instructions-section:hover {
