@@ -688,6 +688,21 @@ textarea::placeholder {
   color: #555;
 }
 
+.employee-card,
+.day-card,
+.attendance-card {
+  background: #1c1c1c;
+  color: #eee;
+  border: 1px solid #333;
+}
+
+.section h3,
+.attendance-card h3,
+.day-card h2,
+.time-label {
+  color: #90e0ef; /* Light teal or your theme accent */
+}
+
 .employee-list {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
@@ -743,7 +758,8 @@ textarea::placeholder {
   border-radius: 4px;
   margin: 2px;
   font-size: 0.9em;
-  color: #333;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .day-label {

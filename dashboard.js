@@ -185,8 +185,13 @@ function generateRadarChart() {
       responsive: true,
       scales: {
         r: {
-          beginAtZero: true,
-          suggestedMax: 10,
+          pointLabels: { color: "#ccc" },
+          grid: { color: "rgba(255, 252, 252, 0.93)" },
+          angleLines: { color: "rgba(255, 254, 254, 0.9)" },
+          ticks: {
+            color: "#aaa",
+            backdropColor: "transparent",
+          },
         },
       },
     },
@@ -252,7 +257,15 @@ function generateClientBarGraph() {
       responsive: true,
       plugins: { legend: { display: false } },
       scales: {
-        y: { beginAtZero: true },
+        x: {
+          ticks: { color: "#ccc" },
+          grid: { color: "rgba(253, 250, 250, 0.88)" },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#ccc" },
+          grid: { color: "rgba(247, 233, 233, 0.46)" },
+        },
       },
     },
   });
