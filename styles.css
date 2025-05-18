@@ -185,7 +185,7 @@ h3 {
   position: absolute;
   left: 0;
   top: 0;
-  color: #3498db;
+  color: #1eff00;
   font-size: 1.3em;
   line-height: 1;
 }
@@ -323,7 +323,7 @@ textarea::placeholder {
   display: block;
   padding: 12px 30px;
   font-size: 1em;
-  background-color: #3498db;
+  background-color: #1eff008c;
   color: #fff;
   border: none;
   border-radius: 6px;
@@ -332,7 +332,8 @@ textarea::placeholder {
 }
 
 .download-button:hover {
-  background-color: #2980b9;
+  background-color: #1eff00;
+  color: #000;
   transform: scale(1.08);
 }
 
