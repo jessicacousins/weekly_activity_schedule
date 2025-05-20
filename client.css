@@ -6,8 +6,8 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #f4f6f8;
-  color: #333;
+  background-color: #0f0f0f;
+  color: #f8eaea;
   padding: 20px;
 }
 
@@ -16,10 +16,11 @@ body {
   max-width: 860px;
   margin: 40px auto;
   padding: 30px 40px;
-  background: #ffffff;
+  background: #1d1d1d;
   border-radius: 12px;
   box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
   transition: box-shadow 0.3s ease-in-out;
+  border: 1px solid #15ff00;
 }
 
 .client-comment-container:hover {
