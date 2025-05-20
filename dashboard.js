@@ -454,7 +454,15 @@ function renderDayBreakdownChart() {
       responsive: true,
       plugins: { legend: { display: false } },
       scales: {
-        y: { beginAtZero: true },
+        x: {
+          ticks: { color: "#ccc" },
+          grid: { color: "rgba(255,255,255,0.1)" },
+        },
+        y: {
+          beginAtZero: true,
+          ticks: { color: "#ccc" },
+          grid: { color: "rgba(255,255,255,0.1)" },
+        },
       },
     },
   });
