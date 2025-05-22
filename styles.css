@@ -393,7 +393,7 @@ textarea::placeholder {
 
 .attendance-card input[type="date"]:hover,
 .attendance-card input[type="text"]:hover {
-  border-color: #3498db;
+  border-color: #1eff00;
   background-color: #f0f8ff;
 }
 

@@ -45,4 +45,5 @@
 .navbar-links a:hover {
   background-color: #f0f8ff;
   color: #000;
+  border: 1px solid #1eff00;
 }
