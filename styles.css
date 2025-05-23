@@ -578,8 +578,8 @@ textarea::placeholder {
 }
 
 .action-button {
-  background-color: #1eff008c;
-  color: white;
+  background-color: #79fdfe;
+  color: #000;
   border: none;
   padding: 12px 24px;
   border-radius: 6px;
@@ -587,7 +587,7 @@ textarea::placeholder {
   font-size: 1em;
   margin: 30px auto;
   display: block;
-  width: fit-content; 
+  width: fit-content;
   max-width: 90%;
   text-align: center;
   transition: background-color 0.3s, transform 0.2s;
