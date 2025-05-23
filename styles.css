@@ -578,19 +578,24 @@ textarea::placeholder {
 }
 
 .action-button {
-  background-color: #3498db;
+  background-color: #1eff008c;
   color: white;
   border: none;
   padding: 12px 24px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 1em;
-  margin-bottom: 30px;
+  margin: 30px auto;
+  display: block;
+  width: fit-content; 
+  max-width: 90%;
+  text-align: center;
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .action-button:hover {
-  background-color: #2980b9;
+  background-color: #1eff00;
+  color: #000;
   transform: scale(1.05);
 }
 
@@ -700,7 +705,7 @@ textarea::placeholder {
 .attendance-card h3,
 .day-card h2,
 .time-label {
-  color: #90e0ef; /* Light teal or your theme accent */
+  color: #90e0ef;
 }
 
 .employee-list {
