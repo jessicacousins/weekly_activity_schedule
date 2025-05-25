@@ -323,8 +323,8 @@ textarea::placeholder {
   display: block;
   padding: 12px 30px;
   font-size: 1em;
-  background-color: #1eff008c;
-  color: #fff;
+  background-color: #79fdfe;
+  color: #000;
   border: none;
   border-radius: 6px;
   cursor: pointer;
