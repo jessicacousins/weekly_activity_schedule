@@ -137,6 +137,29 @@ h3 {
   color: #1eff00;
 }
 
+.welcome-message {
+  text-align: center;
+  margin-top: 40px;
+  padding: 0 20px;
+  max-width: 800px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.tagline-title {
+  font-size: 1.8em;
+  color: #1eff00;
+  margin-bottom: 10px;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+.tagline-subtitle {
+  font-size: 1.1em;
+  color: #ccc;
+  line-height: 1.6;
+}
+
 /* directions  */
 .instructions-section {
   max-width: 880px;
