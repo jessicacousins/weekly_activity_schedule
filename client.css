@@ -7,151 +7,147 @@
 body {
   font-family: "Roboto", sans-serif;
   background-color: #0f0f0f;
-  color: #f8eaea;
+  color: #f0f0f0;
   padding: 20px;
 }
 
-/* daily comments  */
+/* daily comments */
 .client-comment-container {
-  max-width: 860px;
+  max-width: 900px;
   margin: 40px auto;
-  padding: 30px 40px;
-  background: #1d1d1d;
-  border-radius: 12px;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  transition: box-shadow 0.3s ease-in-out;
-  border: 1px solid #15ff00;
+  padding: 40px;
+  background: #1a1a1a;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0, 255, 120, 0.07);
+  border: 1px solid #1eff00;
+  transition: box-shadow 0.3s ease-in-out, transform 0.3s ease;
 }
 
 .client-comment-container:hover {
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 255, 120, 0.1);
+  transform: scale(1.01);
 }
 
-.day-inputs {
-  margin-bottom: 30px;
+h1,
+h2 {
+  text-align: center;
+  color: #79fdfe;
+  margin-bottom: 25px;
 }
 
+/* input section */
 .day-inputs label {
   display: block;
-  margin-top: 10px;
-  font-weight: 600;
-  color: #2c3e50;
+  margin-top: 20px;
+  font-weight: 500;
+  color: #1eff00;
+  font-size: 1.1em;
 }
 
 .day-inputs input[type="date"],
 .day-inputs textarea {
   width: 100%;
+  padding: 14px;
+  margin-top: 8px;
+  border: 1px solid #333;
+  border-radius: 8px;
+  background: #1f1f1f;
+  color: #fff;
   font-size: 1em;
-  padding: 12px;
-  margin-top: 6px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  background: #fff;
   transition: border-color 0.3s ease, background-color 0.3s ease;
 }
 
 .day-inputs input[type="date"]:hover,
 .day-inputs textarea:hover {
-  border-color: #3498db;
-  background-color: #f0f8ff;
+  border-color: #79fdfe;
+  background-color: #262626;
 }
 
-.day-inputs textarea {
+textarea {
   resize: vertical;
-  min-height: 100px;
+  min-height: 120px;
 }
 
-/* comment history display */
-.comment-history-grid {
-  margin-top: 30px;
-}
-
-.comment-entry {
-  padding: 15px 20px;
-  margin-bottom: 15px;
-  border-left: 4px solid #3498db;
-  background: #f9f9f9;
-  border-radius: 8px;
-  transition: background-color 0.3s ease;
-}
-
-.comment-entry:hover {
-  background: #f0f8ff;
-}
-
+/* buttons */
 .download-button {
   display: block;
   margin: 30px auto 0;
-  padding: 12px 28px;
-  background-color: #3498db;
-  color: white;
+  padding: 14px 32px;
+  background-color: #79fdfe;
+  color: #000;
   font-size: 1em;
-  font-weight: 500;
+  font-weight: 600;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  transition: background-color 0.3s, transform 0.2s;
+  transition: background-color 0.3s, transform 0.2s, box-shadow 0.2s;
 }
 
 .download-button:hover {
-  background-color: #2980b9;
+  background-color: #1eff00;
   transform: scale(1.06);
+  box-shadow: 0 0 12px rgba(30, 255, 0, 0.4);
 }
 
 .download-button:active {
-  transform: scale(0.96);
+  transform: scale(0.97);
 }
 
-/* PDF  */
+/* comment cards */
+.comment-history-grid {
+  margin-top: 40px;
+}
+
+.comment-entry {
+  background: #202020;
+  border-left: 5px solid #3498db;
+  padding: 18px 22px;
+  margin-bottom: 18px;
+  border-radius: 10px;
+  color: #ddd;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.comment-entry:hover {
+  background: #262626;
+  transform: translateY(-3px);
+}
+
+/* PDF options section */
 .pdf-options {
   margin-top: 40px;
-  padding: 20px;
-  background-color: #fdfdfd;
-  border: 1px solid #e1e1e1;
-  border-radius: 8px;
+  padding: 24px;
+  background-color: #1f1f1f;
+  border: 1px solid #333;
+  border-radius: 10px;
+  color: #ccc;
 }
 
 .pdf-options h3 {
-  font-size: 1.1em;
-  color: #2c3e50;
-  margin-bottom: 10px;
+  font-size: 1.2em;
+  color: #79fdfe;
+  margin-bottom: 12px;
 }
 
 .pdf-options label {
   display: block;
-  margin: 12px 0;
-  font-size: 0.95em;
-  color: #333;
+  margin: 14px 0;
+  font-size: 1em;
 }
 
 .pdf-options input[type="date"] {
-  padding: 8px;
-  font-size: 1em;
-  margin: 10px 5px 0 0;
-  border: 1px solid #ccc;
+  background: #111;
+  color: #fff;
+  border: 1px solid #555;
+  padding: 10px;
   border-radius: 6px;
-  transition: border-color 0.3s ease;
+  margin: 6px 4px 0 0;
 }
 
 .pdf-options input[type="date"]:hover {
-  border-color: #3498db;
+  border-color: #79fdfe;
 }
 
-/* ! scroll bar  */
-::-webkit-scrollbar {
-  width: 10px;
-}
-::-webkit-scrollbar-track {
-  background: #e0e0e0;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb {
-  background: #3498db;
-  border-radius: 10px;
-}
-::-webkit-scrollbar-thumb:hover {
-  background: #2980b9;
-}
 
 input[type="text"],
 input[type="date"],
@@ -161,7 +157,22 @@ textarea {
 
 input:focus,
 textarea:focus {
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.15);
+  border-color: #1eff00;
+  box-shadow: 0 0 0 3px rgba(30, 255, 0, 0.2);
   outline: none;
+}
+
+/* scroll bar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #1eff00aa;
+  border-radius: 10px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #1eff00;
 }
