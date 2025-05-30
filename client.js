@@ -48,9 +48,16 @@ function renderComments() {
 
     const entry = document.createElement("div");
     entry.className = "comment-entry";
-    entry.style.backgroundColor =
-      mode === "range" && inRange ? "#e6f7ff" : "#f9f9f9";
-    entry.innerHTML = `<strong>${date}:</strong><p>${comment}</p>`;
+    entry.innerHTML = `
+      <strong style="color:#79fdfe;">${date}:</strong>
+      <p style="white-space:pre-wrap; color:#eee; margin-top:6px;">${comment}</p>
+    `;
+    entry.style.backgroundColor = "#202020";
+    entry.style.borderLeft = "5px solid #3498db";
+    entry.style.borderRadius = "10px";
+    entry.style.padding = "18px 22px";
+    entry.style.marginBottom = "18px";
+
     grid.appendChild(entry);
   });
 }
