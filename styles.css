@@ -27,6 +27,29 @@ header {
   margin-bottom: 30px;
 }
 
+/* styled hr element  */
+
+hr {
+  border: none;
+  height: 2px;
+  background: linear-gradient(to right, #1eff00, #1eff00aa, #1eff00);
+  box-shadow: 0 0 8px #1eff00aa;
+  margin: 40px auto;
+  max-width: 600px;
+  animation: pulse-glow 2.5s ease-in-out infinite;
+  border-radius: 2px;
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 8px #1eff00aa;
+  }
+  50% {
+    box-shadow: 0 0 16px #1eff00;
+  }
+}
+
 /* navbar  */
 .global-navbar {
   display: flex;

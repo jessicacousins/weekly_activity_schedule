@@ -28,6 +28,14 @@
     <a href="index.html" class="action-button" style="margin-top: 20px"
       >← Back to Home</a
     >
+
+    <button
+      id="downloadWeeklyReportBtn"
+      class="download-button"
+      style="margin-top: 30px"
+    >
+      📄 Download Weekly Report
+    </button>
     <section>
       <div
         id="stats-box"
@@ -38,39 +46,46 @@
           color: #1eff00;
         "
       ></div>
+      <hr />
 
       <h2 style="margin-top: 40px">Recently Added Employees</h2>
       <ul id="recentEmployees" class="activity-log-list"></ul>
 
+      <hr />
+
       <h2 style="margin-top: 40px">Employees Working Per Day</h2>
       <canvas id="dayBreakdownChart" height="200"></canvas>
 
+      <hr />
+
       <h2 style="margin-top: 40px">Most Frequent Clients</h2>
       <ul id="topClientNames" class="top-clients-list"></ul>
-
-      <button
-        id="downloadWeeklyReportBtn"
-        class="download-button"
-        style="margin-top: 30px"
-      >
-        📄 Download Weekly Report
-      </button>
     </section>
+
+    <hr />
     <section class="dashboard-visuals">
       <h2>Client Count Bar Graph</h2>
       <canvas id="clientBarGraph" height="200"></canvas>
-
+      <hr />
       <h2 style="margin-top: 40px">Weekly Employee Attendance Heatmap</h2>
       <div id="attendanceHeatmap" class="heatmap-grid"></div>
+
+      <hr />
 
       <h2 style="margin-top: 40px">Top Clients This Week</h2>
       <ul id="topClientsList" class="top-clients-list"></ul>
 
+      <hr />
+
       <h2 style="margin-top: 40px">Employee Utilization Overview</h2>
       <canvas id="radarChart" height="300"></canvas>
 
+      <hr />
+
       <h2 style="margin-top: 40px">Recent Activity Log</h2>
       <ul id="activityLog" class="activity-log-list"></ul>
+
+      <hr />
 
       <h2 style="margin-top: 40px">📅 Daily Change Log</h2>
       <div id="dailyChangeLog" class="activity-log-list"></div>
