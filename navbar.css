@@ -35,15 +35,21 @@
   color: #1eff00;
   text-decoration: none;
   font-weight: 600;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   font-size: 1em;
-  padding: 8px 12px;
-  border-radius: 6px;
-  transition: background-color 0.9s;
+  padding: 10px 18px;
+  border-radius: 8px;
+  background: linear-gradient(145deg, #161616, #0f0f0f);
+  box-shadow: 0 3px 8px rgba(30, 255, 0, 0.3), inset 0 0 0 transparent;
+  transition: all 0.3s ease-in-out;
+  display: inline-block;
+  text-shadow: 0 0 2px #1eff00;
 }
 
 .navbar-links a:hover {
   background-color: #f0f8ff;
-  color: #000;
+  color: #ffffff;
   border: 1px solid #1eff00;
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(30, 255, 0, 0.4);
 }
