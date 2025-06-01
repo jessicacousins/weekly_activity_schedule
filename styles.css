@@ -6,7 +6,7 @@
 
 body {
   font-family: "Roboto", sans-serif;
-  background-color: #0f0f0f;
+  background-color: #111111;
   color: #333;
   padding: 20px;
   animation: fadeIn 0.5s ease;
@@ -28,7 +28,6 @@ header {
 }
 
 /* styled hr element  */
-
 hr {
   border: none;
   height: 2px;
