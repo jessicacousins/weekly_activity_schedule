@@ -660,7 +660,7 @@ textarea::placeholder {
 }
 
 .action-button {
-  background-color: #79fdfe;
+  background-color: #1eff00;
   color: #000;
   border: none;
   padding: 12px 24px;
@@ -672,11 +672,14 @@ textarea::placeholder {
   width: fit-content;
   max-width: 90%;
   text-align: center;
+  letter-spacing: 1px;
+  font-weight: 900;
+  line-height: 1.2;
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .action-button:hover {
-  background-color: #1eff00;
+  background-color: #a0fb94;
   color: #000;
   transform: scale(1.05);
 }
