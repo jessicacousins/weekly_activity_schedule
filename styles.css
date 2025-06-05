@@ -364,22 +364,29 @@ textarea::placeholder {
 
 /* download button PDF */
 .download-button {
-  margin: 30px auto 0;
-  display: block;
-  padding: 12px 30px;
-  font-size: 1em;
-  background-color: #79fdfe;
+  margin-top: 30px;
+  background-color: #1eff00;
   color: #000;
   border: none;
+  padding: 12px 24px;
   border-radius: 6px;
   cursor: pointer;
+  font-size: 1em;
+  margin: 30px auto;
+  display: block;
+  width: fit-content;
+  max-width: 90%;
+  text-align: center;
+  letter-spacing: 1px;
+  font-weight: 900;
+  line-height: 1.2;
   transition: background-color 0.3s, transform 0.2s;
 }
 
 .download-button:hover {
-  background-color: #1eff00;
+  background-color: #a0fb94;
   color: #000;
-  transform: scale(1.08);
+  transform: scale(1.05);
 }
 
 .download-button:active {
