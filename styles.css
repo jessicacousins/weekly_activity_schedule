@@ -741,8 +741,9 @@ textarea::placeholder {
 }
 
 .employee-card:hover {
+  color: #000;
   background: linear-gradient(135deg, #ecf5ff, #ecf5ff);
-  border: 1px solid #3498db;
+  border: 1px solid #1eff00;
 }
 
 .employee-card h2 {
