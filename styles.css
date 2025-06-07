@@ -30,12 +30,13 @@ header {
 /* styled hr element  */
 hr {
   border: none;
-  height: 2px;
-  background: linear-gradient(to right, #1eff00, #1eff00aa, #1eff00);
-  box-shadow: 0 0 8px #1eff00aa;
+  height: 3px;
+  background: linear-gradient(to right, #1eff00, transparent, #1eff00);
+  margin: 30px 0;
+  box-shadow: 0 0 12px rgba(30, 255, 0, 0.4);
   margin: 40px auto;
   max-width: 600px;
-  animation: pulse-glow 2.5s ease-in-out infinite;
+  /* animation: pulse-glow 2.5s ease-in-out infinite; */
   border-radius: 2px;
 }
 
@@ -901,6 +902,7 @@ textarea::placeholder {
   padding: 0;
   margin: 20px 0;
   max-width: 500px;
+  color: #eee;
 }
 
 .top-clients-list li {
