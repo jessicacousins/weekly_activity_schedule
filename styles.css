@@ -969,16 +969,15 @@ textarea::placeholder {
   width: 10px;
 }
 ::-webkit-scrollbar-track {
-  background: #222;
-  border-radius: 10px;
+  background: #111;
 }
 ::-webkit-scrollbar-thumb {
-  background: #1eff008c;
+  background: #1eff00;
   border-radius: 10px;
   cursor: grab;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #1eff00;
+  background: #39ff88;
 }
 
 input[type="text"],
