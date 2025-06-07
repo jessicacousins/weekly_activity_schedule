@@ -606,23 +606,6 @@ textarea::placeholder {
 }
 
 /* ! Home Page styles  */
-/* .employee-list li {
-  background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
-  border: 1px solid #333;
-  border-radius: 12px;
-  padding: 18px;
-  color: #eee;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-}
-
-.employee-list li:hover {
-  transform: scale(1.03);
-  box-shadow: 0 8px 18px rgba(0, 255, 100, 0.1);
-  background: linear-gradient(135deg, #222, #2f2f2f);
-} */
-
 .employee-list li div:first-child {
   background: #1eff00;
   color: black;
@@ -643,14 +626,6 @@ textarea::placeholder {
 .employee-list li:hover div:first-child {
   transform: scale(1.05);
 }
-
-/* .employee-list li a {
-  flex-grow: 1;
-  font-size: 1.1em;
-  color: #79fdfe;
-  text-decoration: none;
-  font-weight: 600;
-} */
 
 .employee-list li {
   background: linear-gradient(135deg, #1d1d1d, #2b2b2b);
