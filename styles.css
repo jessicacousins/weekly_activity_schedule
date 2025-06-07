@@ -605,7 +605,7 @@ textarea::placeholder {
 }
 
 /* ! Home Page styles  */
-.employee-list li {
+/* .employee-list li {
   background: linear-gradient(135deg, #1c1c1c, #2a2a2a);
   border: 1px solid #333;
   border-radius: 12px;
@@ -620,7 +620,7 @@ textarea::placeholder {
   transform: scale(1.03);
   box-shadow: 0 8px 18px rgba(0, 255, 100, 0.1);
   background: linear-gradient(135deg, #222, #2f2f2f);
-}
+} */
 
 .employee-list li div:first-child {
   background: #1eff00;
@@ -643,12 +643,42 @@ textarea::placeholder {
   transform: scale(1.05);
 }
 
-.employee-list li a {
+/* .employee-list li a {
   flex-grow: 1;
   font-size: 1.1em;
   color: #79fdfe;
   text-decoration: none;
   font-weight: 600;
+} */
+
+.employee-list li {
+  background: linear-gradient(135deg, #1d1d1d, #2b2b2b);
+  border: 1px solid #1eff00aa;
+  border-radius: 14px;
+  padding: 18px 20px;
+  color: #e8fdee;
+  box-shadow: 0 4px 14px rgba(30, 255, 0, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: pointer;
+}
+
+.employee-list li:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(30, 255, 0, 0.2);
+  background: linear-gradient(135deg, #232323, #2f2f2f);
+}
+
+.employee-list li a {
+  flex-grow: 1;
+  font-size: 1.2em;
+  font-weight: 600;
+  color: #79fdfe;
+  text-decoration: none;
+  padding: 8px 0;
+  display: block;
 }
 
 .employee-list li button {
