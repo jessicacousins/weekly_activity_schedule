@@ -902,7 +902,7 @@ textarea::placeholder {
   padding: 0;
   margin: 20px 0;
   max-width: 500px;
-  color: #eee;
+  color: #000;
 }
 
 .top-clients-list li {
