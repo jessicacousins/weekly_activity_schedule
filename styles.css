@@ -169,6 +169,18 @@ h3 {
   margin-right: auto;
 }
 
+.welcome-message h2 {
+  color: #ff4d4d;
+  text-shadow: 0 0 6px rgba(255, 77, 77, 0.4);
+  font-weight: bold;
+  letter-spacing: 1px;
+  font-size: 1.8em;
+  border-top: 5px solid #ff4d4d;
+  padding-left: 12px;
+  margin-bottom: 12px;
+ 
+}
+
 .tagline-title {
   font-size: 1.8em;
   color: #1eff00;
