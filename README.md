@@ -2,12 +2,12 @@
 
 ## Project Overview
 
-The Weekly Activity Schedule is a lightweight, browser-based scheduling and attendance tracking system. It is built for environments like day programs, care teams, or education providers that require flexible, client-focused planning tools. All logic is handled client-side with no backend server involved.
+The Weekly Activity Schedule is a lightweight, browser-based scheduling and attendance tracking system demo. It is built for environments like day programs, care teams, or education providers that require flexible, client-focused planning tools. All logic is handled client-side with no backend server involved. This is not a secure product.
 
 **Live Demo:**  
 https://weeklyschedulemaker.netlify.app/
 
-> **Note:** This prototype uses `localStorage` only. It is not secure and should not be used to store sensitive or personally identifiable information.
+> **WARNING:** This prototype uses `localStorage` only. It is not secure and should not be used to store sensitive or personally identifiable information.
 
 ---
 
